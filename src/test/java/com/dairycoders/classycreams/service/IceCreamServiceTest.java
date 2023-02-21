@@ -1,7 +1,7 @@
 package com.dairycoders.classycreams.service;
 
 import com.dairycoders.classycreams.entity.IceCream;
-import com.dairycoders.classycreams.entity.IceCreamType;
+import com.dairycoders.classycreams.entity.enums.IceCreamType;
 import com.dairycoders.classycreams.repository.IceCreamRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;

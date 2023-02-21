@@ -1,5 +1,6 @@
 package com.dairycoders.classycreams.entity;
 
+import com.dairycoders.classycreams.entity.enums.IceCreamType;
 import jakarta.persistence.*;
 
 @Entity

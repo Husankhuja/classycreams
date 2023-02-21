@@ -4,6 +4,7 @@ import com.dairycoders.classycreams.entity.IceCream;
 import com.dairycoders.classycreams.service.IceCreamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,29 +16,37 @@ public class IceCreamController {
     private IceCreamService iceCreamService;
 
     @GetMapping
-    public List<IceCream> getAllIceCreams() {
-        return iceCreamService.getAllIceCreams();
+    public ResponseEntity<List<IceCream>> getAllIceCreams() {
+        List<IceCream> iceCreams = iceCreamService.getAllIceCreams();
+        return ResponseEntity.ok(iceCreams);
     }
 
     @GetMapping("/{id}")
-    public IceCream getIceCreamById(@PathVariable long id) {
-        return iceCreamService.getIceCreamById(id);
+    public ResponseEntity<IceCream> getIceCreamById(@PathVariable Long id) {
+        IceCream iceCream = iceCreamService.getIceCreamById(id);
+        if (iceCream == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(iceCream);
+        }
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public IceCream createIceCream(@RequestBody IceCream iceCream) {
-        return iceCreamService.createIceCream(iceCream);
+    public ResponseEntity<IceCream> createIceCream(@RequestBody IceCream iceCream) {
+        IceCream createdIceCream = iceCreamService.createIceCream(iceCream);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdIceCream);
     }
 
     @PutMapping("/{id}")
-    public IceCream updateIceCream(@PathVariable long id, @RequestBody IceCream iceCream) {
+    public ResponseEntity<IceCream> updateIceCream(@PathVariable Long id, @RequestBody IceCream iceCream) {
         iceCream.setIceCreamId(id);
-        return iceCreamService.updateIceCream(iceCream);
+        IceCream updatedIceCream = iceCreamService.updateIceCream(iceCream);
+        return ResponseEntity.ok(updatedIceCream);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteIceCreamById(@PathVariable long id) {
+    public ResponseEntity<Void> deleteIceCreamById(@PathVariable Long id) {
         iceCreamService.deleteIceCreamById(id);
+        return ResponseEntity.noContent().build();
     }
 }

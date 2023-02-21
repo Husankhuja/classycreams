@@ -4,6 +4,7 @@ import com.dairycoders.classycreams.entity.Topping;
 import com.dairycoders.classycreams.service.ToppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,29 +16,37 @@ public class ToppingController {
     private ToppingService toppingService;
 
     @GetMapping
-    public List<Topping> getAllToppings() {
-        return toppingService.getAllToppings();
+    public ResponseEntity<List<Topping>> getAllToppings() {
+        List<Topping> toppings = toppingService.getAllToppings();
+        return ResponseEntity.ok(toppings);
     }
 
     @GetMapping("/{id}")
-    public Topping getToppingById(@PathVariable long id) {
-        return toppingService.getToppingById(id);
+    public ResponseEntity<Topping> getToppingById(@PathVariable Long id) {
+        Topping topping = toppingService.getToppingById(id);
+        if (topping == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(topping);
+        }
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Topping createTopping(@RequestBody Topping topping) {
-        return toppingService.createTopping(topping);
+    public ResponseEntity<Topping> createTopping(@RequestBody Topping topping) {
+        Topping createdTopping = toppingService.createTopping(topping);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTopping);
     }
 
     @PutMapping("/{id}")
-    public Topping updateTopping(@PathVariable long id, @RequestBody Topping topping) {
+    public ResponseEntity<Topping> updateTopping(@PathVariable Long id, @RequestBody Topping topping) {
         topping.setToppingId(id);
-        return toppingService.updateTopping(topping);
+        Topping updatedTopping = toppingService.updateTopping(topping);
+        return ResponseEntity.ok(updatedTopping);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteToppingById(@PathVariable long id) {
+    public ResponseEntity<Void> deleteToppingById(@PathVariable Long id) {
         toppingService.deleteToppingById(id);
+        return ResponseEntity.noContent().build();
     }
 }

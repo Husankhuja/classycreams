@@ -1,5 +1,7 @@
 package com.dairycoders.classycreams.entity;
 
+import com.dairycoders.classycreams.entity.enums.OrderStatus;
+import com.dairycoders.classycreams.entity.enums.PaymentStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 

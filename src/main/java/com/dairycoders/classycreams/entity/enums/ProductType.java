@@ -1,4 +1,4 @@
-package com.dairycoders.classycreams.entity;
+package com.dairycoders.classycreams.entity.enums;
 
 public enum ProductType {
     CONE,
