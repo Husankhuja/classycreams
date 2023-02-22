@@ -19,16 +19,16 @@ public class ProductService {
         this.iceCreamSupportRepository = iceCreamSupportRepository;
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> getAll() {
         return productRepository.findAll();
     }
 
-    public Product getProductById(long id) {
+    public Product getById(long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product not found"));
     }
 
-    public Product createProduct(Product product) {
+    public Product create(Product product) {
         IceCreamSupport iceCreamSupport = product.getIceCreamSupport();
         if (iceCreamSupport != null) {
             iceCreamSupport.setProduct(product);
@@ -37,11 +37,11 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product updateProduct(Product product) {
+    public Product update(Product product) {
         return productRepository.save(product);
     }
 
-    public void deleteProductById(long id) {
+    public void deleteById(long id) {
         productRepository.deleteById(id);
     }
 }

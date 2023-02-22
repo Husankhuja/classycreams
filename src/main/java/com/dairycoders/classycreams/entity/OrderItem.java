@@ -17,10 +17,10 @@ public class OrderItem {
     @JoinColumn(name = "productId", referencedColumnName = "productId")
     private Product product;
     @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
-    private List<OrderItemIceCream> iceCreams;
+    private List<OrderItemIceCream> orderItemIceCreams;
 
     @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
-    private List<OrderItemTopping> toppings;
+    private List<OrderItemTopping> orderItemToppings;
 
     public OrderItem() {
     }
@@ -29,14 +29,14 @@ public class OrderItem {
             long orderItemId,
             Order order,
             Product product,
-            List<OrderItemIceCream> iceCreams,
-            List<OrderItemTopping> toppings
+            List<OrderItemIceCream> orderItemIceCreams,
+            List<OrderItemTopping> orderItemToppings
     ) {
         this.orderItemId = orderItemId;
         this.order = order;
         this.product = product;
-        this.iceCreams = iceCreams;
-        this.toppings = toppings;
+        this.orderItemIceCreams = orderItemIceCreams;
+        this.orderItemToppings = orderItemToppings;
     }
 
     @Override
@@ -45,8 +45,8 @@ public class OrderItem {
                 "orderItemId=" + orderItemId +
                 ", order=" + order +
                 ", product=" + product +
-                ", iceCreams=" + iceCreams +
-                ", toppings=" + toppings +
+                ", orderItemIceCreams=" + orderItemIceCreams +
+                ", orderItemToppings=" + orderItemToppings +
                 '}';
     }
 
@@ -74,19 +74,19 @@ public class OrderItem {
         this.product = product;
     }
 
-    public List<OrderItemIceCream> getIceCreams() {
-        return iceCreams;
+    public List<OrderItemIceCream> getOrderItemIceCreams() {
+        return orderItemIceCreams;
     }
 
-    public void setIceCreams(List<OrderItemIceCream> iceCreams) {
-        this.iceCreams = iceCreams;
+    public void setOrderItemIceCreams(List<OrderItemIceCream> orderItemIceCreams) {
+        this.orderItemIceCreams = orderItemIceCreams;
     }
 
-    public List<OrderItemTopping> getToppings() {
-        return toppings;
+    public List<OrderItemTopping> getOrderItemToppings() {
+        return orderItemToppings;
     }
 
-    public void setToppings(List<OrderItemTopping> toppings) {
-        this.toppings = toppings;
+    public void setOrderItemToppings(List<OrderItemTopping> orderItemToppings) {
+        this.orderItemToppings = orderItemToppings;
     }
 }

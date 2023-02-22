@@ -15,7 +15,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long orderId;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> items;
+    private List<OrderItem> orderItems;
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
@@ -24,11 +24,11 @@ public class Order {
     private OrderPrice orderPrice;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus orderStatus = OrderStatus.PLACED;
     @CreationTimestamp
     private LocalDateTime orderDate;
     @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus = PaymentStatus.NOT_PAYED;
     private String deliveryAddress;
 
     public Order() {
@@ -36,7 +36,7 @@ public class Order {
 
     public Order(
             long orderId,
-            List<OrderItem> items,
+            List<OrderItem> orderItems,
             User user,
             OrderPrice orderPrice,
             OrderStatus orderStatus,
@@ -45,7 +45,7 @@ public class Order {
             String deliveryAddress
     ) {
         this.orderId = orderId;
-        this.items = items;
+        this.orderItems = orderItems;
         this.user = user;
         this.orderPrice = orderPrice;
         this.orderStatus = orderStatus;
@@ -58,7 +58,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", items=" + items +
+                ", orderItems=" + orderItems +
                 ", user=" + user +
                 ", orderPrice=" + orderPrice +
                 ", orderStatus=" + orderStatus +
@@ -76,12 +76,12 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public List<OrderItem> getItems() {
-        return items;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setItems(List<OrderItem> items) {
-        this.items = items;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public User getUser() {

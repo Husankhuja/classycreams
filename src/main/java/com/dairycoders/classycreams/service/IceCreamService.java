@@ -21,24 +21,24 @@ public class IceCreamService {
         this.iceCreamRepository = iceCreamRepository;
     }
 
-    public List<IceCream> getAllIceCreams() {
+    public List<IceCream> getAll() {
         return iceCreamRepository.findAll();
     }
 
-    public IceCream getIceCreamById(long id) {
+    public IceCream getById(long id) {
         return iceCreamRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Ice cream not found"));
     }
 
-    public IceCream createIceCream(IceCream iceCream) {
+    public IceCream create(IceCream iceCream) {
         return iceCreamRepository.save(iceCream);
     }
 
-    public IceCream updateIceCream(IceCream iceCream) {
+    public IceCream update(IceCream iceCream) {
         return iceCreamRepository.save(iceCream);
     }
 
-    public void deleteIceCreamById(long id) {
+    public void deleteById(long id) {
         iceCreamRepository.deleteById(id);
     }
 }

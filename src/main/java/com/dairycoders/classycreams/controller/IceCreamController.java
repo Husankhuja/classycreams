@@ -22,7 +22,7 @@ public class IceCreamController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<IceCream> getIceCreamById(@PathVariable Long id) {
+    public ResponseEntity<IceCream> getIceCreamById(@PathVariable long id) {
         IceCream iceCream = iceCreamService.getIceCreamById(id);
         if (iceCream == null) {
             return ResponseEntity.notFound().build();

@@ -17,13 +17,13 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
+        List<Product> products = productService.getAll();
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        Product product = productService.getProductById(id);
+        Product product = productService.getById(id);
         if (product == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -33,20 +33,20 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product createdProduct = productService.createProduct(product);
+        Product createdProduct = productService.create(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
         product.setProductId(id);
-        Product updatedProduct = productService.updateProduct(product);
+        Product updatedProduct = productService.update(product);
         return ResponseEntity.ok(updatedProduct);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
-        productService.deleteProductById(id);
+        productService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
