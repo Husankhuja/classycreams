@@ -36,15 +36,15 @@ class IceCreamServiceTest {
 
     @Test
     void getAllIceCreams() {
-        List<IceCream> iceCreams = iceCreamService.getAllIceCreams();
+        List<IceCream> iceCreams = iceCreamService.getAll();
 
         iceCreams.forEach(System.out::println);
     }
 
     @Test
     void getIceCreamById() {
-        long id = iceCreamService.getAllIceCreams().get(0).getIceCreamId();
-        IceCream result = iceCreamService.getIceCreamById(id);
+        long id = iceCreamService.getAll().get(0).getIceCreamId();
+        IceCream result = iceCreamService.getById(id);
 
         assertNotNull(result);
         assertEquals("Vanilla", result.getName());
@@ -60,7 +60,7 @@ class IceCreamServiceTest {
         iceCream.setBasePrice(1.99);
         iceCream.setCalories(250);
 
-        IceCream result = iceCreamService.createIceCream(iceCream);
+        IceCream result = iceCreamService.create(iceCream);
 
         assertNotNull(result);
         assertEquals("Strawberry", result.getName());
@@ -73,12 +73,12 @@ class IceCreamServiceTest {
 
     @Test
     void updateIceCream() {
-        long id = iceCreamService.getAllIceCreams().get(0).getIceCreamId();
-        IceCream iceCream = iceCreamService.getIceCreamById(id);
+        long id = iceCreamService.getAll().get(0).getIceCreamId();
+        IceCream iceCream = iceCreamService.getById(id);
         iceCream.setName("Organic Vanilla");
         iceCream.setBasePrice(3.49);
 
-        IceCream result = iceCreamService.updateIceCream(iceCream);
+        IceCream result = iceCreamService.update(iceCream);
 
         assertNotNull(result);
         assertEquals("Organic Vanilla", result.getName());
@@ -88,8 +88,8 @@ class IceCreamServiceTest {
 
     @Test
     void deleteIceCreamById() {
-        long id = iceCreamService.getAllIceCreams().get(0).getIceCreamId();
-        iceCreamService.deleteIceCreamById(id);
+        long id = iceCreamService.getAll().get(0).getIceCreamId();
+        iceCreamService.deleteById(id);
 
         IceCream found = iceCreamRepository.findById(id).orElse(null);
 

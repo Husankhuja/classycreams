@@ -3,8 +3,11 @@ package com.dairycoders.classycreams.service;
 import com.dairycoders.classycreams.controller.request.OrderItemRequest;
 import com.dairycoders.classycreams.entity.*;
 import com.dairycoders.classycreams.repository.OrderItemRepository;
+import com.dairycoders.classycreams.util.OrderItemInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,20 +29,20 @@ public class OrderItemService {
         this.orderItemToppingService = orderItemToppingService;
     }
 
-    public List<OrderItem> initAll(
+    public List<OrderItemInfo> initAll(
             Order order,
             List<OrderItemRequest> orderItemRequests
     ) {
-        List<OrderItem> orderItems = orderItemRequests
+        List<OrderItemInfo> orderItemInfos = orderItemRequests
                 .stream()
                 .map(orderItemRequest -> {
                     return init(order, orderItemRequest);
                 })
                 .toList();
-        return orderItems;
+        return orderItemInfos;
     }
 
-    public OrderItem init(
+    public OrderItemInfo init(
             Order order,
             OrderItemRequest orderItemRequest
     ) {
@@ -48,32 +51,37 @@ public class OrderItemService {
 
         // getProductById and setProduct for orderItem
         Product product = productService.getById(orderItemRequest.getProductId());
+        System.out.println("\n\n\n" + product + "\n\n\n");
         orderItem.setProduct(product);
-        // create OrderItemToppings and setOrderItemToppings for orderItem
+        // init OrderItemToppings
         List<Long> toppingIds = orderItemRequest.getToppingIds();
         List<OrderItemTopping> orderItemToppings = orderItemToppingService.initAll(orderItem, toppingIds);
-        orderItem.setOrderItemToppings(orderItemToppings);
-        // create OrderItemIceCreams and setOrderItemIceCreams for orderItem
+
+        // init OrderItemIceCreams
         List<Long> iceCreamIds = orderItemRequest.getIceCreamIds();
         List<OrderItemIceCream> orderItemIceCreams = orderItemIceCreamService.initAll(orderItem, iceCreamIds);
-        orderItem.setOrderItemIceCreams(orderItemIceCreams);
 
-        return orderItem;
+        // save orderItem and addons to orderItemInfo
+        OrderItemInfo orderItemInfo = new OrderItemInfo(orderItem, orderItemIceCreams, orderItemToppings);
+        return orderItemInfo;
     }
 
     public void saveAll(
-            List<OrderItem> orderItems
+            List<OrderItemInfo> orderItemInfos
     ) {
-        orderItems.forEach(orderItem -> save(orderItem));
+        orderItemInfos.forEach(orderItemInfo -> save(orderItemInfo));
     }
 
     public void save(
-            OrderItem orderItem
+            OrderItemInfo orderItemInfo
     ) {
+        List<OrderItemIceCream> orderItemIceCreams = orderItemInfo.getOrderItemIceCreams();
+        List<OrderItemTopping> orderItemToppings = orderItemInfo.getOrderItemToppings();
+        OrderItem orderItem = orderItemInfo.getOrderItem();
         orderItemRepository.save(orderItem);
         // save OrderItemIceCreams
-        orderItemIceCreamService.saveAll(orderItem.getOrderItemIceCreams());
+        orderItemIceCreamService.saveAll(orderItemIceCreams);
         // save OrderItemToppings
-        orderItemToppingService.saveAll(orderItem.getOrderItemToppings());
+        orderItemToppingService.saveAll(orderItemToppings);
     }
 }

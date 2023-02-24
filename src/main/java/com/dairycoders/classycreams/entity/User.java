@@ -14,8 +14,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders;
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private String firstName;
@@ -30,7 +28,6 @@ public class User implements UserDetails {
 
     public User(
             long userId,
-            List<Order> orders,
             UserRole role,
             String firstName,
             String lastName,
@@ -39,7 +36,6 @@ public class User implements UserDetails {
             String password
     ) {
         this.userId = userId;
-        this.orders = orders;
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,7 +48,6 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", orders=" + orders +
                 ", role=" + role +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -70,13 +65,6 @@ public class User implements UserDetails {
         this.userId = userId;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 
     public UserRole getRole() {
         return role;

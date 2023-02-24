@@ -8,8 +8,6 @@ public class IceCreamSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long iceCreamSupportId;
-    @OneToOne(mappedBy = "iceCreamSupport", cascade = CascadeType.REMOVE)
-    private Product product;
     private int minScoops;
     private int maxScoops;
     private int minSoft;
@@ -19,17 +17,8 @@ public class IceCreamSupport {
     public IceCreamSupport() {
     }
 
-    public IceCreamSupport(
-            long iceCreamSupportId,
-            Product product,
-            int minScoops,
-            int maxScoops,
-            int minSoft,
-            int maxSoft,
-            int freeToppings
-    ) {
+    public IceCreamSupport(long iceCreamSupportId, int minScoops, int maxScoops, int minSoft, int maxSoft, int freeToppings) {
         this.iceCreamSupportId = iceCreamSupportId;
-        this.product = product;
         this.minScoops = minScoops;
         this.maxScoops = maxScoops;
         this.minSoft = minSoft;
@@ -41,7 +30,6 @@ public class IceCreamSupport {
     public String toString() {
         return "IceCreamSupport{" +
                 "iceCreamSupportId=" + iceCreamSupportId +
-                ", product=" + product +
                 ", minScoops=" + minScoops +
                 ", maxScoops=" + maxScoops +
                 ", minSoft=" + minSoft +
@@ -56,14 +44,6 @@ public class IceCreamSupport {
 
     public void setIceCreamSupportId(long iceCreamSupportId) {
         this.iceCreamSupportId = iceCreamSupportId;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public int getMinScoops() {

@@ -5,7 +5,9 @@ import com.dairycoders.classycreams.controller.request.OrderRequest;
 import com.dairycoders.classycreams.entity.Order;
 import com.dairycoders.classycreams.entity.OrderItem;
 import com.dairycoders.classycreams.entity.OrderPrice;
+import com.dairycoders.classycreams.entity.User;
 import com.dairycoders.classycreams.repository.OrderRepository;
+import com.dairycoders.classycreams.util.OrderItemInfo;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,18 +41,19 @@ public class OrderService {
     }
 
     @Transactional
-    public Order create(OrderRequest orderRequest) {
+    public Order create(User user, OrderRequest orderRequest) {
         Order order = new Order();
+        order.setUser(user);
+        order.setDeliveryAddress(orderRequest.getAddress());
         // create orderItems and setOrderItems for order
         List<OrderItemRequest> orderItemRequests = orderRequest.getOrderItems();
-        List<OrderItem> orderItems = orderItemService.initAll(order, orderItemRequests);
-        order.setOrderItems(orderItems);
+        List<OrderItemInfo> orderItemInfos = orderItemService.initAll(order, orderItemRequests);
         // create price and setOrderPrice for order
-        OrderPrice orderPrice = orderPriceService.create(order);
+        OrderPrice orderPrice = orderPriceService.create(orderItemInfos);
         order.setOrderPrice(orderPrice);
         // save order and orderItems
         orderRepository.save(order);
-        orderItemService.saveAll(orderItems);
+        orderItemService.saveAll(orderItemInfos);
         return order;
     }
 }

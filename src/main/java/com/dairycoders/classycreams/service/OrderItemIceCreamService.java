@@ -4,6 +4,7 @@ import com.dairycoders.classycreams.entity.IceCream;
 import com.dairycoders.classycreams.entity.OrderItem;
 import com.dairycoders.classycreams.entity.OrderItemIceCream;
 import com.dairycoders.classycreams.repository.OrderItemIceCreamRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class OrderItemIceCreamService {
         return orderItemIceCream;
     }
 
+    @Transactional
     public List<OrderItemIceCream> saveAll(List<OrderItemIceCream> orderItemIceCreams) {
         return orderItemIceCreamRepository.saveAll(orderItemIceCreams);
     }

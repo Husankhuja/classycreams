@@ -14,8 +14,6 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long orderId;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems;
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
@@ -34,18 +32,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(
-            long orderId,
-            List<OrderItem> orderItems,
-            User user,
-            OrderPrice orderPrice,
-            OrderStatus orderStatus,
-            LocalDateTime orderDate,
-            PaymentStatus paymentStatus,
-            String deliveryAddress
-    ) {
+    public Order(long orderId, User user, OrderPrice orderPrice, OrderStatus orderStatus, LocalDateTime orderDate, PaymentStatus paymentStatus, String deliveryAddress) {
         this.orderId = orderId;
-        this.orderItems = orderItems;
         this.user = user;
         this.orderPrice = orderPrice;
         this.orderStatus = orderStatus;
@@ -58,7 +46,6 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", orderItems=" + orderItems +
                 ", user=" + user +
                 ", orderPrice=" + orderPrice +
                 ", orderStatus=" + orderStatus +
@@ -74,14 +61,6 @@ public class Order {
 
     public void setOrderId(long orderId) {
         this.orderId = orderId;
-    }
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
     }
 
     public User getUser() {

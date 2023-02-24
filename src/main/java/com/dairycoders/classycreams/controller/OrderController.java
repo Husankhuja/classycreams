@@ -2,10 +2,12 @@ package com.dairycoders.classycreams.controller;
 
 import com.dairycoders.classycreams.controller.request.OrderRequest;
 import com.dairycoders.classycreams.entity.Order;
+import com.dairycoders.classycreams.entity.User;
 import com.dairycoders.classycreams.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +35,11 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest) {
-        Order createdOrder = orderService.create(orderRequest);
+    public ResponseEntity<Order> createOrder(
+            @RequestBody OrderRequest orderRequest,
+            @AuthenticationPrincipal User user
+    ) {
+        Order createdOrder = orderService.create(user, orderRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
     }
 }

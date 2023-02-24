@@ -5,6 +5,7 @@ import com.dairycoders.classycreams.entity.OrderItemTopping;
 import com.dairycoders.classycreams.entity.Topping;
 import com.dairycoders.classycreams.repository.OrderItemToppingRepository;
 import com.dairycoders.classycreams.repository.ToppingRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,9 @@ public class OrderItemToppingService {
         return orderItemTopping;
     }
 
+    @Transactional
     public void saveAll(List<OrderItemTopping> orderItemToppings) {
-        orderItemToppingRepository.saveAll(orderItemToppings);
+        if (orderItemToppings.size() > 0)
+            orderItemToppingRepository.saveAll(orderItemToppings);
     }
 }

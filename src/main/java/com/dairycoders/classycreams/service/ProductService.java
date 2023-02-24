@@ -5,6 +5,7 @@ import com.dairycoders.classycreams.entity.Product;
 import com.dairycoders.classycreams.repository.IceCreamSupportRepository;
 import com.dairycoders.classycreams.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +29,10 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("Product not found"));
     }
 
+    @Transactional
     public Product create(Product product) {
         IceCreamSupport iceCreamSupport = product.getIceCreamSupport();
-        if (iceCreamSupport != null) {
-            iceCreamSupport.setProduct(product);
-            iceCreamSupportRepository.save(iceCreamSupport);
-        }
+        iceCreamSupportRepository.save(iceCreamSupport);
         return productRepository.save(product);
     }
 

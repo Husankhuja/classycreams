@@ -17,13 +17,13 @@ public class IceCreamController {
 
     @GetMapping
     public ResponseEntity<List<IceCream>> getAllIceCreams() {
-        List<IceCream> iceCreams = iceCreamService.getAllIceCreams();
+        List<IceCream> iceCreams = iceCreamService.getAll();
         return ResponseEntity.ok(iceCreams);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<IceCream> getIceCreamById(@PathVariable long id) {
-        IceCream iceCream = iceCreamService.getIceCreamById(id);
+        IceCream iceCream = iceCreamService.getById(id);
         if (iceCream == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -33,20 +33,20 @@ public class IceCreamController {
 
     @PostMapping
     public ResponseEntity<IceCream> createIceCream(@RequestBody IceCream iceCream) {
-        IceCream createdIceCream = iceCreamService.createIceCream(iceCream);
+        IceCream createdIceCream = iceCreamService.create(iceCream);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdIceCream);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<IceCream> updateIceCream(@PathVariable Long id, @RequestBody IceCream iceCream) {
         iceCream.setIceCreamId(id);
-        IceCream updatedIceCream = iceCreamService.updateIceCream(iceCream);
+        IceCream updatedIceCream = iceCreamService.update(iceCream);
         return ResponseEntity.ok(updatedIceCream);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteIceCreamById(@PathVariable Long id) {
-        iceCreamService.deleteIceCreamById(id);
+        iceCreamService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
