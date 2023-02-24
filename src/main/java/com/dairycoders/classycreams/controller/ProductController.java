@@ -1,6 +1,8 @@
 package com.dairycoders.classycreams.controller;
 
+import com.dairycoders.classycreams.annotation.RequiresAuthentication;
 import com.dairycoders.classycreams.entity.Product;
+import com.dairycoders.classycreams.entity.enums.UserRole;
 import com.dairycoders.classycreams.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,12 +33,14 @@ public class ProductController {
         }
     }
 
+    @RequiresAuthentication(value = {UserRole.USER})
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product createdProduct = productService.create(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
+    @RequiresAuthentication(value = {UserRole.USER})
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
         product.setProductId(id);
@@ -44,6 +48,7 @@ public class ProductController {
         return ResponseEntity.ok(updatedProduct);
     }
 
+    @RequiresAuthentication(value = {UserRole.USER})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
         productService.deleteById(id);
