@@ -1,4 +1,4 @@
-package com.dairycoders.classycreams.util;
+package com.dairycoders.classycreams.controller.response;
 
 import com.dairycoders.classycreams.entity.OrderItem;
 import com.dairycoders.classycreams.entity.OrderItemIceCream;
@@ -6,15 +6,15 @@ import com.dairycoders.classycreams.entity.OrderItemTopping;
 
 import java.util.List;
 
-public class OrderItemInfo {
-    OrderItem orderItem;
-    List<OrderItemIceCream> orderItemIceCreams;
-    List<OrderItemTopping> orderItemToppings;
+public class OrderItemResponse {
+    private OrderItem orderItem;
+    private List<OrderItemIceCream> orderItemIceCreams;
+    private List<OrderItemTopping> orderItemToppings;
 
-    public OrderItemInfo() {
+    public OrderItemResponse() {
     }
 
-    public OrderItemInfo(OrderItem orderItem, List<OrderItemIceCream> orderItemIceCreams, List<OrderItemTopping> orderItemToppings) {
+    public OrderItemResponse(OrderItem orderItem, List<OrderItemIceCream> orderItemIceCreams, List<OrderItemTopping> orderItemToppings) {
         this.orderItem = orderItem;
         this.orderItemIceCreams = orderItemIceCreams;
         this.orderItemToppings = orderItemToppings;
@@ -22,7 +22,7 @@ public class OrderItemInfo {
 
     @Override
     public String toString() {
-        return "OrderItemInfo{" +
+        return "OrderItemResponse{" +
                 "orderItem=" + orderItem +
                 ", orderItemIceCreams=" + orderItemIceCreams +
                 ", orderItemToppings=" + orderItemToppings +

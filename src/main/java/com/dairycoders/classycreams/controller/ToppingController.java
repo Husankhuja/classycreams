@@ -12,8 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/toppings")
 public class ToppingController {
+    private final ToppingService toppingService;
+
     @Autowired
-    private ToppingService toppingService;
+    public ToppingController(ToppingService toppingService) {
+        this.toppingService = toppingService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Topping>> getAllToppings() {

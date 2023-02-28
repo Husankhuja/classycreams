@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -28,11 +27,21 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus = PaymentStatus.NOT_PAYED;
     private String deliveryAddress;
+    private boolean isDelivery;
 
     public Order() {
     }
 
-    public Order(long orderId, User user, OrderPrice orderPrice, OrderStatus orderStatus, LocalDateTime orderDate, PaymentStatus paymentStatus, String deliveryAddress) {
+    public Order(
+            long orderId,
+            User user,
+            OrderPrice orderPrice,
+            OrderStatus orderStatus,
+            LocalDateTime orderDate,
+            PaymentStatus paymentStatus,
+            String deliveryAddress,
+            boolean isDelivery
+    ) {
         this.orderId = orderId;
         this.user = user;
         this.orderPrice = orderPrice;
@@ -40,6 +49,7 @@ public class Order {
         this.orderDate = orderDate;
         this.paymentStatus = paymentStatus;
         this.deliveryAddress = deliveryAddress;
+        this.isDelivery = isDelivery;
     }
 
     @Override
@@ -52,6 +62,7 @@ public class Order {
                 ", orderDate=" + orderDate +
                 ", paymentStatus=" + paymentStatus +
                 ", deliveryAddress='" + deliveryAddress + '\'' +
+                ", isDelivery=" + isDelivery +
                 '}';
     }
 
@@ -109,6 +120,14 @@ public class Order {
 
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+    }
+
+    public boolean isDelivery() {
+        return isDelivery;
+    }
+
+    public void setIsDelivery(boolean delivery) {
+        isDelivery = delivery;
     }
 }
 

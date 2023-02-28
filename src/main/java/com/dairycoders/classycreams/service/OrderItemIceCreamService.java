@@ -23,6 +23,10 @@ public class OrderItemIceCreamService {
         this.iceCreamService = iceCreamService;
     }
 
+    public List<OrderItemIceCream> getByOrderItemId(long orderItemId) {
+        return orderItemIceCreamRepository.findByOrderItemId(orderItemId);
+    }
+
     public List<OrderItemIceCream> initAll(OrderItem orderItem, List<Long> iceCreamIds) {
         List<IceCream> iceCreams = iceCreamIds.stream().map(iceCreamService::getById).toList();
         return iceCreams.stream().map(iceCream -> init(orderItem, iceCream)).toList();

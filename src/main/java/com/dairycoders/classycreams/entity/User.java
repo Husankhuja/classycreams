@@ -10,7 +10,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @Column(nullable = false)
+    private UserRole role = UserRole.USER;
     private String firstName;
     private String lastName;
     @Column(unique = true)

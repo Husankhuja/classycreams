@@ -38,6 +38,10 @@ public class OrderPrice {
                 '}';
     }
 
+    private double roundPrice(double price) {
+        return Math.round(price * 100.0) / 100.0;
+    }
+
     public long getOrderPriceId() {
         return orderPriceId;
     }
@@ -51,7 +55,7 @@ public class OrderPrice {
     }
 
     public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+        this.subtotal = roundPrice(subtotal);
     }
 
     public double getTip() {
@@ -59,7 +63,7 @@ public class OrderPrice {
     }
 
     public void setTip(double tip) {
-        this.tip = tip;
+        this.tip = roundPrice(tip);
     }
 
     public double getDeliveryFee() {
@@ -67,7 +71,7 @@ public class OrderPrice {
     }
 
     public void setDeliveryFee(double deliveryFee) {
-        this.deliveryFee = deliveryFee;
+        this.deliveryFee = roundPrice(deliveryFee);
     }
 
     public double getTax() {
@@ -75,7 +79,7 @@ public class OrderPrice {
     }
 
     public void setTax(double tax) {
-        this.tax = tax;
+        this.tax = roundPrice(tax);
     }
 
     public double getTotal() {
@@ -83,6 +87,6 @@ public class OrderPrice {
     }
 
     public void setTotal(double total) {
-        this.total = total;
+        this.total = roundPrice(total);
     }
 }

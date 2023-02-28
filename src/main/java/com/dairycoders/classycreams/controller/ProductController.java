@@ -14,8 +14,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+    private final ProductService productService;
+
     @Autowired
-    private ProductService productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
@@ -33,7 +37,7 @@ public class ProductController {
         }
     }
 
-    @RequiresAuthentication(value = {UserRole.USER})
+    @RequiresAuthentication(value = {UserRole.ADMIN})
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product createdProduct = productService.create(product);

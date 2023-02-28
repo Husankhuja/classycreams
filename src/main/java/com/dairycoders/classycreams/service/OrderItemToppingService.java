@@ -21,6 +21,10 @@ public class OrderItemToppingService {
         this.toppingRepository = toppingRepository;
     }
 
+    public List<OrderItemTopping> getByOrderItemId(long orderItemId) {
+        return orderItemToppingRepository.findByOrderItemId(orderItemId);
+    }
+
     public List<OrderItemTopping> initAll(OrderItem orderItem, List<Long> toppingIds) {
         List<Topping> toppings = toppingRepository.findAllById(toppingIds);
         return toppings.stream()
