@@ -30,50 +30,58 @@ public class JwtAuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (!(handler instanceof HandlerMethod)) {
+        try {
+            if (!(handler instanceof HandlerMethod)) {
+                return true;
+            }
+
+            // Check if the request has the RequiresAuthentication annotation
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            RequiresAuthentication annotation = handlerMethod.getMethodAnnotation(RequiresAuthentication.class);
+            if (annotation == null) {
+                return true;
+            }
+
+            // check auth header for token
+            String authHeader = request.getHeader("Authorization");
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                throw new ServletException("Missing Authorization");
+            }
+
+            // check if auth token valid
+            String jwt = authHeader.substring(7);
+            if (!jwtService.isValidToken(jwt)) {
+                throw new ServletException("Invalid Token");
+            }
+
+            //check if user exists
+            String email = jwtService.extractEmail(jwt);
+            User user = userService.getByEmail(email);
+            if (user == null) {
+                throw new ServletException("User Not Found");
+            }
+
+            //check if request method specifies Role for Authorization
+            List<UserRole> userRoles = Arrays.asList(annotation.value());
+            if (!userRoles.isEmpty() && !userRoles.contains(user.getRole())) {
+                throw new ServletException("User Not Authorized");
+            }
+
+            //check if token is expired
+            if (jwtService.isTokenExpired(jwt)) {
+                throw new ServletException("Token Is Expired");
+            }
+
+            // add user to request to be accessed by methods
+            request.setAttribute("user", user);
+
             return true;
+        } catch (ServletException e) {
+            String errorMessage = e.getMessage();
+            int errorCode = errorMessage.equals("User Not Authorized") ? 403: 401;
+            response.sendError(errorCode, errorMessage);
+            return false;
         }
 
-        // Check if the request has the RequiresAuthentication annotation
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        RequiresAuthentication annotation = handlerMethod.getMethodAnnotation(RequiresAuthentication.class);
-        if (annotation == null) {
-            return true;
-        }
-
-        // check auth header for token
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new ServletException("Missing Authorization");
-        }
-
-        // check if auth token valid
-        String jwt = authHeader.substring(7);
-        if (!jwtService.isValidToken(jwt)) {
-            throw new ServletException("Invalid Token");
-        }
-
-        //check if user exists
-        String email = jwtService.extractEmail(jwt);
-        User user = userService.getByEmail(email);
-        if (user == null) {
-            throw new ServletException("User Not Found");
-        }
-
-        //check if request method specifies Role for Authorization
-        List<UserRole> userRoles = Arrays.asList(annotation.value());
-        if (!userRoles.isEmpty() && !userRoles.contains(user.getRole())) {
-            throw new ServletException("User Not Authorized");
-        }
-
-        //check if token is expired
-        if (jwtService.isTokenExpired(jwt)) {
-            throw new ServletException("Token Is Expires");
-        }
-
-        // add user to request to be accessed by methods
-        request.setAttribute("user", user);
-
-        return true;
     }
 }
