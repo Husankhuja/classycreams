@@ -1,8 +1,11 @@
 package com.dairycoders.classycreams.service;
 
+import com.dairycoders.classycreams.controller.response.OrderItemIceCreamResponse;
 import com.dairycoders.classycreams.controller.response.OrderItemResponse;
+import com.dairycoders.classycreams.controller.response.OrderItemToppingResponse;
 import com.dairycoders.classycreams.entity.*;
 import com.dairycoders.classycreams.repository.OrderPriceRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,24 +34,32 @@ public class OrderPriceService {
         return orderPrice;
     }
 
+    public OrderPrice getById(long orderPriceId) {
+
+        return orderPriceRepository.findById(orderPriceId)
+                .orElseThrow(() -> new EntityNotFoundException("ORDER_PRICE_NOT_FOUND"));
+    }
+
     private double calculateSubtotal(List<OrderItemResponse> orderItemResponses) {
         double subtotal = 0;
         // iterate through each OrderItem associated with order
         for (OrderItemResponse orderItemResponse : orderItemResponses) {
             // get price of product
             OrderItem orderItem = orderItemResponse.getOrderItem();
-            subtotal += orderItem.getProduct().getBasePrice();
+            subtotal += orderItemResponse.getProduct().getBasePrice();
 
             // get price of all IceCreams added on
-            List<OrderItemIceCream> orderItemIceCreams = orderItemResponse.getOrderItemIceCreams();
-            for (OrderItemIceCream orderItemIceCream : orderItemIceCreams) {
-                IceCream iceCream = orderItemIceCream.getIceCream();
+            List<OrderItemIceCreamResponse> orderItemIceCreamResponses = orderItemResponse
+                    .getOrderItemIceCreamResponses();
+
+            for (OrderItemIceCreamResponse orderItemIceCreamResponse : orderItemIceCreamResponses) {
+                IceCream iceCream = orderItemIceCreamResponse.getIceCream();
                 subtotal += iceCream.getBasePrice();
             }
             // get price of all Toppings added on
-            List<OrderItemTopping> orderItemToppings = orderItemResponse.getOrderItemToppings();
-            for (OrderItemTopping orderItemTopping : orderItemToppings) {
-                Topping topping = orderItemTopping.getTopping();
+            List<OrderItemToppingResponse> orderItemToppingResponses = orderItemResponse.getOrderItemToppingResponses();
+            for (OrderItemToppingResponse orderItemToppingResponse : orderItemToppingResponses) {
+                Topping topping = orderItemToppingResponse.getTopping();
                 subtotal += topping.getBasePrice();
             }
         }

@@ -3,10 +3,11 @@ package com.dairycoders.classycreams.service;
 import com.dairycoders.classycreams.controller.request.LoginRequest;
 import com.dairycoders.classycreams.controller.request.RegisterRequest;
 import com.dairycoders.classycreams.entity.User;
-import org.apache.tomcat.websocket.AuthenticationException;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+
+import javax.naming.AuthenticationException;
 
 @Service
 public class AuthService {
@@ -31,10 +32,10 @@ public class AuthService {
         return jwtService.generateToken(user);
     }
 
-    public String login(LoginRequest loginRequest) throws AuthenticationException {
+    public String login(LoginRequest loginRequest) throws Exception {
         User user = userService.getByEmail(loginRequest.getEmail());
         if (!checkPassword(loginRequest.getPassword(),user.getPassword())) {
-            throw new AuthenticationException("Invalid Credentials");
+            throw new AuthenticationException("INVALID_CREDENTIALS");
         }
         return jwtService.generateToken(user);
 

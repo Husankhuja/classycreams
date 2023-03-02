@@ -10,28 +10,24 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long orderItemId;
-    @ManyToOne
-    @JoinColumn(name = "orderId", referencedColumnName = "orderId")
-    private Order order;
-    @ManyToOne
-    @JoinColumn(name = "productId", referencedColumnName = "productId")
-    private Product product;
+    private long orderId;
+    private long productId;
 
     public OrderItem() {
     }
 
-    public OrderItem(long orderItemId, Order order, Product product) {
+    public OrderItem(long orderItemId, long orderId, long productId) {
         this.orderItemId = orderItemId;
-        this.order = order;
-        this.product = product;
+        this.orderId = orderId;
+        this.productId = productId;
     }
 
     @Override
     public String toString() {
         return "OrderItem{" +
                 "orderItemId=" + orderItemId +
-                ", order=" + order +
-                ", product=" + product +
+                ", orderId=" + orderId +
+                ", productId=" + productId +
                 '}';
     }
 
@@ -43,19 +39,19 @@ public class OrderItem {
         this.orderItemId = orderItemId;
     }
 
-    public Order getOrder() {
-        return order;
+    public long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
-    public Product getProduct() {
-        return product;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 }

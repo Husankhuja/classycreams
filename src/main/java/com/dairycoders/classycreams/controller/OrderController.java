@@ -37,21 +37,12 @@ public class OrderController {
     ResponseEntity<OrderResponse> getOrderById(
             @PathVariable long id,
             @RequestAttribute User user
-    ) {
-        try {
-            OrderResponse orderResponse = orderService.getById(user, id);
-            return ResponseEntity.ok(orderResponse);
-
-        } catch (EntityNotFoundException entityNotFoundException) {
-            return ResponseEntity.notFound().build();
-
-        } catch (Exception e) {
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    ) throws Exception {
+        OrderResponse orderResponse = orderService.getById(user, id);
+        return ResponseEntity.ok(orderResponse);
     }
 
-    @RequiresAuthentication
+    @RequiresAuthentication(value = {UserRole.USER})
     @PostMapping
     public ResponseEntity<OrderResponse> createOrder(
             @RequestBody OrderRequest orderRequest,
@@ -59,5 +50,12 @@ public class OrderController {
             ) {
         OrderResponse createdOrder = orderService.create(user, orderRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
+    }
+
+    @RequiresAuthentication(value = {UserRole.ADMIN})
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable long id) {
+        orderService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

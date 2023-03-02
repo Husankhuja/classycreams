@@ -13,12 +13,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long orderId;
-    @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
-    private User user;
-    @OneToOne
-    @JoinColumn(name = "orderPriceId", referencedColumnName = "orderPriceId", nullable = false)
-    private OrderPrice orderPrice;
+    private long userId;
+    private long orderPriceId;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus = OrderStatus.PLACED;
@@ -32,19 +28,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(
-            long orderId,
-            User user,
-            OrderPrice orderPrice,
-            OrderStatus orderStatus,
-            LocalDateTime orderDate,
-            PaymentStatus paymentStatus,
-            String deliveryAddress,
-            boolean isDelivery
-    ) {
+    public Order(long orderId, long userId, long orderPriceId, OrderStatus orderStatus, LocalDateTime orderDate, PaymentStatus paymentStatus, String deliveryAddress, boolean isDelivery) {
         this.orderId = orderId;
-        this.user = user;
-        this.orderPrice = orderPrice;
+        this.userId = userId;
+        this.orderPriceId = orderPriceId;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
         this.paymentStatus = paymentStatus;
@@ -56,8 +43,8 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", user=" + user +
-                ", orderPrice=" + orderPrice +
+                ", userId=" + userId +
+                ", orderPriceId=" + orderPriceId +
                 ", orderStatus=" + orderStatus +
                 ", orderDate=" + orderDate +
                 ", paymentStatus=" + paymentStatus +
@@ -74,20 +61,20 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public User getUser() {
-        return user;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public OrderPrice getOrderPrice() {
-        return orderPrice;
+    public long getOrderPriceId() {
+        return orderPriceId;
     }
 
-    public void setOrderPrice(OrderPrice orderPrice) {
-        this.orderPrice = orderPrice;
+    public void setOrderPriceId(long orderPriceId) {
+        this.orderPriceId = orderPriceId;
     }
 
     public OrderStatus getOrderStatus() {
@@ -122,7 +109,7 @@ public class Order {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public boolean isDelivery() {
+    public boolean getIsDelivery() {
         return isDelivery;
     }
 

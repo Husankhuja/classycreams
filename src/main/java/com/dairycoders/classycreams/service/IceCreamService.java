@@ -27,7 +27,7 @@ public class IceCreamService {
 
     public IceCream getById(long id) {
         return iceCreamRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Ice cream not found"));
+                .orElseThrow(() -> new EntityNotFoundException("ICE_CREAM_NOT_FOUND"));
     }
 
     public IceCream create(IceCream iceCream) {

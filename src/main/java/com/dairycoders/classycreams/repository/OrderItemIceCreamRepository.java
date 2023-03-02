@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface OrderItemIceCreamRepository extends JpaRepository<OrderItemIceCream, Long> {
-    @Query("SELECT oi FROM OrderItemIceCream oi WHERE oi.orderItem.orderItemId = :orderItemId")
-    List<OrderItemIceCream> findByOrderItemId(@Param("orderItemId") long orderItemId);
+    List<OrderItemIceCream> findAllByOrderItemId(long orderItemId);
+
+    void deleteAllByOrderItemId(long orderItemId);
 }

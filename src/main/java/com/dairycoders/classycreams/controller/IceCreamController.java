@@ -30,11 +30,7 @@ public class IceCreamController {
     @GetMapping("/{id}")
     public ResponseEntity<IceCream> getIceCreamById(@PathVariable long id) {
         IceCream iceCream = iceCreamService.getById(id);
-        if (iceCream == null) {
-            return ResponseEntity.notFound().build();
-        } else {
             return ResponseEntity.ok(iceCream);
-        }
     }
 
     @RequiresAuthentication(value = {UserRole.ADMIN})

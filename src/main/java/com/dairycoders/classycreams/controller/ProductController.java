@@ -30,11 +30,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Product product = productService.getById(id);
-        if (product == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(product);
-        }
+        return ResponseEntity.ok(product);
     }
 
     @RequiresAuthentication(value = {UserRole.ADMIN})

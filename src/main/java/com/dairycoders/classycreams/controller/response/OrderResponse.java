@@ -1,26 +1,33 @@
 package com.dairycoders.classycreams.controller.response;
 
 import com.dairycoders.classycreams.entity.Order;
+import com.dairycoders.classycreams.entity.OrderPrice;
+import com.dairycoders.classycreams.entity.enums.OrderStatus;
+import com.dairycoders.classycreams.entity.enums.PaymentStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderResponse {
     private Order order;
-    private List<OrderItemResponse> orderItemResponses;
+    private List<OrderItemResponse> orderItems;
+    private OrderPrice price;
 
     public OrderResponse() {
     }
 
-    public OrderResponse(Order order, List<OrderItemResponse> orderItemResponses) {
+    public OrderResponse(Order order, List<OrderItemResponse> orderItems, OrderPrice price) {
         this.order = order;
-        this.orderItemResponses = orderItemResponses;
+        this.orderItems = orderItems;
+        this.price = price;
     }
 
     @Override
     public String toString() {
         return "OrderResponse{" +
                 "order=" + order +
-                ", orderItemResponses=" + orderItemResponses +
+                ", orderItems=" + orderItems +
+                ", price=" + price +
                 '}';
     }
 
@@ -33,10 +40,18 @@ public class OrderResponse {
     }
 
     public List<OrderItemResponse> getOrderItemResponses() {
-        return orderItemResponses;
+        return orderItems;
     }
 
-    public void setOrderItemResponses(List<OrderItemResponse> orderItemResponses) {
-        this.orderItemResponses = orderItemResponses;
+    public void setOrderItemResponses(List<OrderItemResponse> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public OrderPrice getOrderPrice() {
+        return price;
+    }
+
+    public void setOrderPrice(OrderPrice price) {
+        this.price = price;
     }
 }

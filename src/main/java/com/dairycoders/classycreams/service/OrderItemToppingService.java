@@ -1,10 +1,9 @@
 package com.dairycoders.classycreams.service;
 
-import com.dairycoders.classycreams.entity.OrderItem;
+import com.dairycoders.classycreams.controller.response.OrderItemToppingResponse;
 import com.dairycoders.classycreams.entity.OrderItemTopping;
 import com.dairycoders.classycreams.entity.Topping;
 import com.dairycoders.classycreams.repository.OrderItemToppingRepository;
-import com.dairycoders.classycreams.repository.ToppingRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -14,34 +13,53 @@ import java.util.List;
 public class OrderItemToppingService {
 
     private final OrderItemToppingRepository orderItemToppingRepository;
-    private final ToppingRepository toppingRepository;
+    private final ToppingService toppingService;
 
-    public OrderItemToppingService(OrderItemToppingRepository orderItemToppingRepository, ToppingRepository toppingRepository) {
+    public OrderItemToppingService(OrderItemToppingRepository orderItemToppingRepository, ToppingService toppingService) {
         this.orderItemToppingRepository = orderItemToppingRepository;
-        this.toppingRepository = toppingRepository;
+        this.toppingService = toppingService;
     }
 
-    public List<OrderItemTopping> getByOrderItemId(long orderItemId) {
-        return orderItemToppingRepository.findByOrderItemId(orderItemId);
-    }
-
-    public List<OrderItemTopping> initAll(OrderItem orderItem, List<Long> toppingIds) {
-        List<Topping> toppings = toppingRepository.findAllById(toppingIds);
-        return toppings.stream()
-                .map(topping -> create(orderItem, topping))
+    public List<OrderItemToppingResponse> getByOrderItemId(long orderItemId) {
+        List<OrderItemTopping> orderItemToppings = orderItemToppingRepository.findAllByOrderItemId(orderItemId);
+        return orderItemToppings
+                .stream()
+                .map(orderItemTopping -> {
+                    long toppingId = orderItemTopping.getToppingId();
+                    Topping topping = toppingService.getById(toppingId);
+                    return new OrderItemToppingResponse(
+                      orderItemTopping,
+                      topping
+                    );
+                })
                 .toList();
     }
 
-    public OrderItemTopping create(OrderItem orderItem, Topping topping) {
-        OrderItemTopping orderItemTopping = new OrderItemTopping();
-        orderItemTopping.setOrderItem(orderItem);
-        orderItemTopping.setTopping(topping);
-        return orderItemTopping;
+    public List<OrderItemToppingResponse> initAll(List<Long> toppingIds) {
+        return toppingIds
+                .stream()
+                .map(toppingId -> new OrderItemToppingResponse(
+                    init(toppingId),
+                    toppingService.getById(toppingId)
+                ))
+                .toList();
+    }
+
+    public OrderItemTopping init(long toppingId) {
+        return new OrderItemTopping(toppingId);
     }
 
     @Transactional
-    public void saveAll(List<OrderItemTopping> orderItemToppings) {
-        if (orderItemToppings.size() > 0)
-            orderItemToppingRepository.saveAll(orderItemToppings);
+    public void saveAll(long orderItemId ,List<OrderItemToppingResponse> orderItemToppingResponses) {
+        orderItemToppingResponses.forEach(orderItemToppingResponse -> {
+            OrderItemTopping orderItemTopping = orderItemToppingResponse.getOrderItemTopping();
+            orderItemTopping.setOrderItemId(orderItemId);
+            orderItemToppingRepository.save(orderItemTopping);
+        });
+    }
+
+    @Transactional
+    public void deleteByOrderItemId(long orderItemId) {
+        orderItemToppingRepository.deleteAllByOrderItemId(orderItemId);
     }
 }

@@ -21,18 +21,14 @@ public class ToppingController {
 
     @GetMapping
     public ResponseEntity<List<Topping>> getAllToppings() {
-        List<Topping> toppings = toppingService.getAllToppings();
+        List<Topping> toppings = toppingService.getAll();
         return ResponseEntity.ok(toppings);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Topping> getToppingById(@PathVariable Long id) {
-        Topping topping = toppingService.getToppingById(id);
-        if (topping == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(topping);
-        }
+        Topping topping = toppingService.getById(id);
+        return ResponseEntity.ok(topping);
     }
 
     @PostMapping

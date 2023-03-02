@@ -8,32 +8,28 @@ public class OrderItemIceCream {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long orderItemIceCreamId;
-    @ManyToOne
-    @JoinColumn(name = "orderItemId")
-    private OrderItem orderItem;
-    @ManyToOne
-    @JoinColumn(name = "iceCreamId")
-    private IceCream iceCream;
+    private long orderItemId;
+    private long iceCreamId;
 
     public OrderItemIceCream() {
     }
 
-    public OrderItemIceCream(
-            long orderItemIceCreamId, 
-            OrderItem orderItem, 
-            IceCream iceCream
-    ) {
+    public OrderItemIceCream(long orderItemIceCreamId, long orderItemId, long iceCreamId) {
         this.orderItemIceCreamId = orderItemIceCreamId;
-        this.orderItem = orderItem;
-        this.iceCream = iceCream;
+        this.orderItemId = orderItemId;
+        this.iceCreamId = iceCreamId;
+    }
+
+    public OrderItemIceCream(long iceCreamId) {
+        this.iceCreamId = iceCreamId;
     }
 
     @Override
     public String toString() {
         return "OrderItemIceCream{" +
                 "orderItemIceCreamId=" + orderItemIceCreamId +
-                ", orderItem=" + orderItem +
-                ", iceCream=" + iceCream +
+                ", orderItemId=" + orderItemId +
+                ", iceCreamId=" + iceCreamId +
                 '}';
     }
 
@@ -45,19 +41,19 @@ public class OrderItemIceCream {
         this.orderItemIceCreamId = orderItemIceCreamId;
     }
 
-    public OrderItem getOrderItem() {
-        return orderItem;
+    public long getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
+    public void setOrderItemId(long orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
-    public IceCream getIceCream() {
-        return iceCream;
+    public long getIceCreamId() {
+        return iceCreamId;
     }
 
-    public void setIceCream(IceCream iceCream) {
-        this.iceCream = iceCream;
+    public void setIceCreamId(long iceCreamId) {
+        this.iceCreamId = iceCreamId;
     }
 }

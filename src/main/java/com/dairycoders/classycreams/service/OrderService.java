@@ -13,6 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @Service
@@ -36,21 +37,22 @@ public class OrderService {
 
     public OrderResponse getById(User user, long id) throws Exception {
         Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+                .orElseThrow(() -> new EntityNotFoundException("ORDER_NOT_FOUND"));
 
         // check if user is admin or order belongs to user
-        if (user.getRole() != UserRole.ADMIN && user.getUserId() != order.getUser().getUserId()) {
-            throw new Exception("User Not Authorized");
+        if (user.getRole() != UserRole.ADMIN && user.getUserId() != order.getUserId()) {
+            throw new AuthenticationException("USER_NOT_AUTHORIZED");
         }
 
         List<OrderItemResponse> orderItemResponses = orderItemService.getByOrderId(order.getOrderId());
-        return new OrderResponse(order, orderItemResponses);
+        OrderPrice orderPrice = orderPriceService.getById(order.getOrderPriceId());
+        return new OrderResponse(order, orderItemResponses, orderPrice);
     }
 
     @Transactional
     public OrderResponse create(User user, OrderRequest orderRequest) {
         Order order = new Order();
-        order.setUser(user);
+        order.setUserId(user.getUserId());
 
         // check if order is delivery
         boolean isDelivery = orderRequest.getIsDelivery();
@@ -63,16 +65,28 @@ public class OrderService {
 
         // create orderItems and setOrderItems for order
         List<OrderItemRequest> orderItemRequests = orderRequest.getOrderItems();
-        List<OrderItemResponse> orderItemResponses = orderItemService.initAll(order, orderItemRequests);
+        List<OrderItemResponse> orderItemResponses = orderItemService.initAll(orderItemRequests);
 
         // create price and setOrderPrice for order
         OrderPrice orderPrice = orderPriceService.create(orderItemResponses, deliveryFee, tip);
-        order.setOrderPrice(orderPrice);
+        order.setOrderPriceId(orderPrice.getOrderPriceId());
 
         // save order and orderItems
         orderRepository.save(order);
-        orderItemService.saveAll(orderItemResponses);
+        orderItemService.saveAll(order.getOrderId() ,orderItemResponses);
         
-        return new OrderResponse(order, orderItemResponses);
+        return new OrderResponse(order, orderItemResponses, orderPrice);
+    }
+
+    public void deleteById(long id) {
+        /*
+            This is only for testing
+            Shouldn't be able to delete order without first refunding if payed
+            or other checks
+         */
+        Order order = orderRepository.findById(id).orElseThrow(() -> {throw new EntityNotFoundException("ORDER_NOT_FOUND");});
+        // delete order items first
+        orderItemService.deleteByOrderId(id);
+        orderRepository.delete(order);
     }
 }

@@ -15,13 +15,13 @@ public class ToppingService {
         this.toppingRepository = toppingRepository;
     }
 
-    public List<Topping> getAllToppings() {
+    public List<Topping> getAll() {
         return toppingRepository.findAll();
     }
 
-    public Topping getToppingById(long id) {
+    public Topping getById(long id) {
         return toppingRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Topping not found"));
+                .orElseThrow(() -> new EntityNotFoundException("TOPPING_NOT_FOUND"));
     }
 
     public Topping createTopping(Topping topping) {
@@ -33,6 +33,7 @@ public class ToppingService {
     }
 
     public void deleteToppingById(long id) {
-        toppingRepository.deleteById(id);
+        Topping topping = toppingRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("TOPPING_NOT_FOUND"));
+        toppingRepository.delete(topping);
     }
 }

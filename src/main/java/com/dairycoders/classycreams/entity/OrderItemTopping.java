@@ -8,28 +8,28 @@ public class OrderItemTopping {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long orderItemToppingId;
-    @ManyToOne
-    @JoinColumn(name = "orderItemId")
-    private OrderItem orderItem;
-    @ManyToOne
-    @JoinColumn(name = "toppingId")
-    private Topping topping;
+    private long orderItemId;
+    private long toppingId;
 
     public OrderItemTopping() {
     }
 
-    public OrderItemTopping(long orderItemToppingId, OrderItem orderItem, Topping topping) {
+    public OrderItemTopping(long orderItemToppingId, long orderItemId, long toppingId) {
         this.orderItemToppingId = orderItemToppingId;
-        this.orderItem = orderItem;
-        this.topping = topping;
+        this.orderItemId = orderItemId;
+        this.toppingId = toppingId;
+    }
+
+    public OrderItemTopping(long toppingId) {
+        this.toppingId = toppingId;
     }
 
     @Override
     public String toString() {
         return "OrderItemTopping{" +
                 "orderItemToppingId=" + orderItemToppingId +
-                ", orderItem=" + orderItem +
-                ", topping=" + topping +
+                ", orderItemId=" + orderItemId +
+                ", toppingId=" + toppingId +
                 '}';
     }
 
@@ -41,19 +41,19 @@ public class OrderItemTopping {
         this.orderItemToppingId = orderItemToppingId;
     }
 
-    public OrderItem getOrderItem() {
-        return orderItem;
+    public long getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
+    public void setOrderItemId(long orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
-    public Topping getTopping() {
-        return topping;
+    public long getToppingId() {
+        return toppingId;
     }
 
-    public void setTopping(Topping topping) {
-        this.topping = topping;
+    public void setToppingId(long toppingId) {
+        this.toppingId = toppingId;
     }
 }

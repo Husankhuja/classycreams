@@ -1,5 +1,6 @@
 package com.dairycoders.classycreams.service;
 
+import com.dairycoders.classycreams.controller.response.OrderItemIceCreamResponse;
 import com.dairycoders.classycreams.entity.IceCream;
 import com.dairycoders.classycreams.entity.OrderItem;
 import com.dairycoders.classycreams.entity.OrderItemIceCream;
@@ -23,25 +24,47 @@ public class OrderItemIceCreamService {
         this.iceCreamService = iceCreamService;
     }
 
-    public List<OrderItemIceCream> getByOrderItemId(long orderItemId) {
-        return orderItemIceCreamRepository.findByOrderItemId(orderItemId);
+    public List<OrderItemIceCreamResponse> getByOrderItemId(long orderItemId) {
+        List<OrderItemIceCream> orderItemIceCreams = orderItemIceCreamRepository.findAllByOrderItemId(orderItemId);
+        return orderItemIceCreams
+            .stream()
+            .map(orderItemIceCream -> {
+                long iceCreamId = orderItemIceCream.getIceCreamId();
+                IceCream iceCream = iceCreamService.getById(iceCreamId);
+                return new OrderItemIceCreamResponse(
+                    orderItemIceCream,
+                    iceCream
+                );
+            })
+            .toList();
     }
 
-    public List<OrderItemIceCream> initAll(OrderItem orderItem, List<Long> iceCreamIds) {
-        List<IceCream> iceCreams = iceCreamIds.stream().map(iceCreamService::getById).toList();
-        return iceCreams.stream().map(iceCream -> init(orderItem, iceCream)).toList();
+    public List<OrderItemIceCreamResponse> initAll(List<Long> iceCreamIds) {
+        return iceCreamIds
+                .stream()
+                .map(iceCreamId -> new OrderItemIceCreamResponse(
+                        init(iceCreamId),
+                        iceCreamService.getById(iceCreamId)
+                ))
+                .toList();
     }
 
-    public OrderItemIceCream init(OrderItem orderItem, IceCream iceCream) {
-        OrderItemIceCream orderItemIceCream = new OrderItemIceCream();
-        orderItemIceCream.setOrderItem(orderItem);
-        orderItemIceCream.setIceCream(iceCream);
-        return orderItemIceCream;
+    public OrderItemIceCream init(long iceCreamId) {
+        return new OrderItemIceCream(iceCreamId);
     }
 
     @Transactional
-    public List<OrderItemIceCream> saveAll(List<OrderItemIceCream> orderItemIceCreams) {
-        return orderItemIceCreamRepository.saveAll(orderItemIceCreams);
+    public void saveAll(long orderItemId, List<OrderItemIceCreamResponse> orderItemIceCreamResponses) {
+        orderItemIceCreamResponses.forEach(orderItemIceCreamResponse -> {
+            OrderItemIceCream orderItemIceCream = orderItemIceCreamResponse.getOrderItemIceCream();
+            orderItemIceCream.setOrderItemId(orderItemId);
+            orderItemIceCreamRepository.save(orderItemIceCream);
+        });
+    }
+
+    @Transactional
+    public void deleteByOrderItemId(long orderItemId) {
+        orderItemIceCreamRepository.deleteAllByOrderItemId(orderItemId);
     }
 }
 
