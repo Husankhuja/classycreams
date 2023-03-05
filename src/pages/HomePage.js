@@ -1,18 +1,18 @@
-import { useContext } from "react";
-import AuthContext from "../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import LayoutPage from "./LayoutPage";
 
 const HomePage = () => {
-  const { user, logout } = useContext(AuthContext);
-  return (
-    <div>
-      <p>This is the Home Page</p>
-      { user ? <p>Logged in as {user.firstName} {user.lastName} </p> : null }
 
-      { user ? <button onClick={logout}>Logout</button> : 
-        <p><Link to="/login">login</Link></p>
-      }
-    </div>
+  return (
+    <LayoutPage>
+      <main>
+        <section>
+          <img 
+            src="https://r4.wallpaperflare.com/wallpaper/987/674/478/brain-icecream-illust-art-wallpaper-6070a5f9cf865e2358bf17765be6f408.jpg"
+            width="100%"
+          />
+        </section>
+      </main>
+    </LayoutPage>
   );
 };
 
