@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({openCart}) {
     return ( 
         <header>
             <nav>
@@ -15,6 +15,7 @@ function Header() {
                 <div>
                     <button><Link to="/order">Order</Link></button>
                     <button><Link to="/login">Login</Link></button>
+                    <button onClick={openCart}>Cart</button>
                 </div>
             </nav>
         </header>
