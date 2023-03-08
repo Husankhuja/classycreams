@@ -4,6 +4,10 @@ import { Route, Routes } from "react-router-dom";
 import './styles/App.css';
 import './styles/Header.css';
 import './styles/Card.css';
+import './styles/ItemPage.css';
+import './styles/OrderItemCard.css';
+import './styles/Modal.css';
+
 // pages
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';

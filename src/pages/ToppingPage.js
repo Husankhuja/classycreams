@@ -16,8 +16,10 @@ function ToppingPage() {
 
     return (
         <LayoutPage>
-            <h1>Toppings</h1>
-            <CardGrid items={toppings} />
+            <div className="item_page">
+                <h1 className="item_page_title">Toppings</h1>
+                <CardGrid items={toppings} />
+            </div>
         </LayoutPage>
     );
 }

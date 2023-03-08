@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import LayoutPage from "./LayoutPage";
 import ProductModal from "../components/ProductModal";
+import OrderItemCard from "../components/OrderItemCard";
 
 function OrderPage() {
     const [products, setProducts] = useState([]);
@@ -30,12 +31,7 @@ function OrderPage() {
             <h2>IceCream Cone and Cups</h2>
             {
                 products.filter(product => ["CONE", "CUP"].includes(product.type)).map((product) => (
-                    <div key={product.productId}>
-                        <h3>{product.name}</h3>
-                        <p>{product.description}</p>
-                        <p>{product.price}</p>
-                        <button onClick={() => openModal(product)}>Add to Cart</button>
-                    </div>
+                    <OrderItemCard item={product} openModal={openModal} />  
                 ))
             }
             {

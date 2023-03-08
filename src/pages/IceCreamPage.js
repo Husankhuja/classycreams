@@ -16,8 +16,11 @@ function IceCreamPage() {
 
     return (
         <LayoutPage>
-            <h1>IceCreams</h1>
-            <CardGrid items={iceCreams} />
+            <div className="item_page">
+                <h1 className="item_page_title">Ice Creams</h1>
+                <CardGrid items={iceCreams} />
+            </div>
+
         </LayoutPage>
     );
 }

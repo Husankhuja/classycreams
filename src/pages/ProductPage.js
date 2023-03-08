@@ -16,8 +16,10 @@ function ProductPage() {
 
     return (
         <LayoutPage>
-            <h1>Products</h1>
-            <CardGrid items={products} />
+            <div className="item_page">
+                <h1 className="item_page_title">Products</h1>
+                <CardGrid items={products} />
+            </div>
         </LayoutPage>
     );
 }
