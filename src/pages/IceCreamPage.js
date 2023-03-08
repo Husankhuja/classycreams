@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import LayoutPage from "./LayoutPage";
+import CardGrid from "../components/CardGrid";
 
 function IceCreamPage() {
     const [iceCreams, setIceCreams] = useState([]);
@@ -16,13 +17,7 @@ function IceCreamPage() {
     return (
         <LayoutPage>
             <h1>IceCreams</h1>
-            {iceCreams.map((iceCream) => (
-                <div key={iceCream.iceCreamId}>
-                    <h2>{iceCream.name}</h2>
-                    <p>{iceCream.description}</p>
-                    <p>{iceCream.price}</p>
-                </div>
-            ))}
+            <CardGrid items={iceCreams} />
         </LayoutPage>
     );
 }

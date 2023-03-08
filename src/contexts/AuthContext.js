@@ -9,9 +9,11 @@ export default AuthContext;
 export const AuthProvider = ({ children }) => {
     const [authToken, setAuthToken] = useState(null);
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
+        setLoading(true);
         const token = localStorage.getItem("token");
         if (token) {
             const decodedToken = jwt_decode(token);
@@ -23,6 +25,7 @@ export const AuthProvider = ({ children }) => {
                 setUser(decodedToken);
             }
         }
+        setLoading(false);
     }, []);
 
     const login = async (e) => {
@@ -46,9 +49,14 @@ export const AuthProvider = ({ children }) => {
                 email: token.sub,
                 firstName: token.firstName,
                 lastName: token.lastName,
+                role: token.role,
             })
             localStorage.setItem("token", data.token);
-            navigate("/");
+            if (user.role === "ADMIN") {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
         } else {
             alert('LoginPage failed');
         }
@@ -63,7 +71,7 @@ export const AuthProvider = ({ children }) => {
         navigate("/login");
     };
 
-    const contextData = { authToken, user, login, logout};
+    const contextData = { authToken, user, loading, login, logout};
 
     return (
         <AuthContext.Provider value={contextData}>
