@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import LayoutPage from "./LayoutPage";
 import CardGrid from "../components/CardGrid";
+import { iceCreamRequest } from "../services/product";
 
 function IceCreamPage() {
     const [iceCreams, setIceCreams] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/ice-creams")
+        iceCreamRequest()
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);

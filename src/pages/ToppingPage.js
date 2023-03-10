@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import LayoutPage from "./LayoutPage";
 import CardGrid from "../components/CardGrid";
+import { toppingRequest } from "../services/product";
 
 function ToppingPage() {
     const [toppings, setToppings] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/toppings")
+        toppingRequest()
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);

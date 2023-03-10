@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { registerRequest } from '../services/auth';
 
 const RegisterPage = () => {
     const [email, setEmail] = useState('');
@@ -11,13 +12,7 @@ const RegisterPage = () => {
     const navigate = useNavigate();
     const register = async (e) => {
         e.preventDefault();
-        let response = await fetch("http://localhost:8080/api/auth/register", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({email, firstName, lastName, password, password2}),
-        });
+        let response = await registerRequest(email, firstName, lastName, password, password2);
         let data = await response.json();
         if (response.status === 200) {
             console.log(data);

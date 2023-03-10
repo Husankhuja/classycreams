@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import LayoutPage from "./LayoutPage";
 import CardGrid from "../components/CardGrid";
+import { productRequest } from "../services/product";
 
 function ProductPage() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/products")
+        productRequest()
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
