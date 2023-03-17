@@ -1,12 +1,12 @@
 package com.dairycoders.classycreams.controller.response;
 
-public class AuthenticationResponse {
+public class TokenResponse {
     private String token;
 
-    public AuthenticationResponse() {
+    public TokenResponse() {
     }
 
-    public AuthenticationResponse(String token) {
+    public TokenResponse(String token) {
         this.token = token;
     }
 

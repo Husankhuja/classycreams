@@ -5,6 +5,7 @@ import com.dairycoders.classycreams.controller.response.OrderItemIceCreamRespons
 import com.dairycoders.classycreams.controller.response.OrderItemResponse;
 import com.dairycoders.classycreams.controller.response.OrderItemToppingResponse;
 import com.dairycoders.classycreams.entity.*;
+import com.dairycoders.classycreams.entity.enums.IceCreamType;
 import com.dairycoders.classycreams.repository.OrderItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -69,9 +70,8 @@ public class OrderItemService {
         // getProductById and setProductId for orderItem
         long productId = orderItemRequest.getProductId();
         orderItem.setProductId(productId);
-        System.out.println("print the Id here " + productId);
         Product product = productService.getById(productId);
-        System.out.println(product);
+
         // init OrderItemToppings
         List<Long> toppingIds = orderItemRequest.getToppingIds();
         List<OrderItemToppingResponse> orderItemToppingResponses = orderItemToppingService.initAll(toppingIds);
@@ -87,6 +87,9 @@ public class OrderItemService {
                 orderItemIceCreamResponses,
                 orderItemToppingResponses
         );
+
+        // validate order
+        validateOrderItem(orderItemResponse);
         return orderItemResponse;
     }
 
@@ -124,7 +127,44 @@ public class OrderItemService {
             // delete order item
             orderItemRepository.delete(orderItem);
         });
+    }
 
+    public void validateOrderItem(OrderItemResponse orderItemResponse) {
+        OrderItem orderItem = orderItemResponse.getOrderItem();
+        IceCreamSupport iceCreamSupport = orderItemResponse.getProduct().getIceCreamSupport();
+        List<OrderItemIceCreamResponse> orderItemIceCreamResponses = orderItemResponse
+                .getOrderItemIceCreamResponses();
+        int iceCreamQuantity = orderItemIceCreamResponses.size();
 
+        List<IceCreamType> iceCreamTypes = orderItemIceCreamResponses
+                .stream()
+                .map(orderItemIceCreamResponse -> orderItemIceCreamResponse.getIceCream().getType())
+                .distinct()
+                .limit(2)
+                .toList();
+
+        // check if Product supports IceCream
+        if (iceCreamSupport.getMaxScoops() < 1 && iceCreamSupport.getMaxSoft() < 1) {
+            if (iceCreamQuantity > 0) throw new IllegalArgumentException("IceCream Not Supported");
+            return;
+        }
+
+        // check if there are multiple ice cream types
+        if (iceCreamTypes.size() > 1) throw new IllegalArgumentException("Multiple IceCreamTypes Not Supported");
+
+        // check if product supports iceCream quantity
+        IceCreamType iceCreamType = iceCreamTypes.get(0);
+        switch (iceCreamType) {
+            case HARDSCOOPED -> {
+                if (iceCreamQuantity > iceCreamSupport.getMaxScoops() || iceCreamQuantity < iceCreamSupport.getMinScoops())
+                    throw new IllegalArgumentException("IceCream Quantity Not Supported For Product");
+            }
+            case SOFTSERVE -> {
+                if (iceCreamQuantity > iceCreamSupport.getMaxSoft() || iceCreamQuantity < iceCreamSupport.getMinSoft())
+                    throw new IllegalArgumentException("IceCream Quantity Not Supported For Product");
+            }
+            default -> {
+            }
+        }
     }
 }

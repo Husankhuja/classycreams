@@ -3,6 +3,7 @@ package com.dairycoders.classycreams.controller;
 
 import com.dairycoders.classycreams.controller.request.LoginRequest;
 import com.dairycoders.classycreams.controller.request.RegisterRequest;
+import com.dairycoders.classycreams.controller.response.TokenResponse;
 import com.dairycoders.classycreams.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest)
+    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest)
             throws Exception {
         String jwt = authService.login(loginRequest);
-        return ResponseEntity.ok(jwt);
+        return ResponseEntity.ok(new TokenResponse(jwt));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
-        return ResponseEntity.ok(authService.register(registerRequest));
+    public ResponseEntity<TokenResponse> register(@RequestBody RegisterRequest registerRequest) {
+        String jwt = authService.register(registerRequest);
+        return ResponseEntity.ok(new TokenResponse(jwt));
     }
 }
