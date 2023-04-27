@@ -6,17 +6,25 @@ export default cartContext
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
+    const [isMounted, setIsMounted] = useState(false);
+    const [subtotal, setSubtotal] = useState(0);
 
     useEffect(() => {
         const cart = localStorage.getItem("cart");
-        if (cart) {
+        if (cart?.length > 0) {
             setCart(JSON.parse(cart));
         }
+        setIsMounted(true);
     }, []);
 
     useEffect(() => {
-        localStorage.setItem("cart", JSON.stringify(cart));
+        setSubtotal(calculateSubtotal());
     }, [cart]);
+
+    useEffect(() => {
+        if (!isMounted) return;
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }, [cart, isMounted]);
 
     const addItem = (item) => {
         setCart(prev => [...prev, item]);
@@ -24,6 +32,14 @@ export const CartProvider = ({ children }) => {
 
     const removeItem = (item) => {
         setCart(prev => prev.filter((cartItem) => cartItem !== item));
+    };
+
+    const calculateSubtotal = () => {
+        let price = 0;
+        cart.forEach((item) => {
+            price += item.price;
+        });
+        return price;
     };
 
     const clearCart = () => {
@@ -35,6 +51,7 @@ export const CartProvider = ({ children }) => {
         addItem,
         removeItem,
         clearCart,
+        subtotal
     };
 
     return (

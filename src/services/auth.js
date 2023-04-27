@@ -1,5 +1,5 @@
 export async function loginRequest (email, password) {
-    let response = await fetch("http://localhost:8080/api/auth/login", {
+    let response = await fetch("http://classy-creams.herokuapp.com/api/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -10,7 +10,7 @@ export async function loginRequest (email, password) {
 }
 
 export async function registerRequest (email, firstName, lastName, password, password2) {
-    let response = await fetch("http://localhost:8080/api/auth/register", {
+    let response = await fetch("http://classy-creams.herokuapp.com/api/auth/register", {
         method: "POST",
         headers: {
             "content-type": "application/json",

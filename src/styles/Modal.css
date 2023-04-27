@@ -6,7 +6,8 @@
     transform: translate(-50%, -50%);
     background-color: #fff;
     width: 500px;
-    height: 500px;
+    max-height: 90%;
+    overflow-y: scroll;
 }
 
 .modal_overlay {
@@ -23,7 +24,6 @@
 .modal_header {
     position: relative;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
     text-align: center;
 }
 
@@ -34,4 +34,29 @@
     transform: translateY(-50%);
     font-size: 20px;
     cursor: pointer;
+}
+
+.modal_body {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.modal_footer {
+    padding: 10px;
+}
+
+.modal_addon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.modal_addon * {
+    margin: 0 5px;
+}
+
+.modal_addon button {
+    padding: 5px;
+    height: fit-content;
 }

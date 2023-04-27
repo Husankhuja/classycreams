@@ -1,31 +1,39 @@
 import React, { useContext } from "react";
 import cartContext from "../contexts/CartContext";
+import CartItem from "./CartItem";
 
 function Cart({closeCart}) {
-  const { cart, removeItem, clearCart } = useContext(cartContext);
-
+  const { cart, removeItem, clearCart, subtotal } = useContext(cartContext);
   // Render the cart using the cart data and functions
   return (
-    <div>
-        <button onClick={closeCart}>Close Cart</button>
-        <h2>Your Cart</h2>
-        {
-            cart.length === 0 ? (
-                <p>Your cart is empty.</p>
-            ) : (
-                <ul>
-                    {
-                    cart.map((item) => (
-                        <li key={item.id}>
-                        <p>{item.name} - ${item.price}</p>
-                        <button onClick={() => removeItem(item)}>Remove</button>
-                        </li>
-                    ))}
-                </ul>
-            )
-        }
-        <button onClick={clearCart}>Clear Cart</button>
-    </div>
+    <>
+        <div className="cart">
+            <div className="cart_header">
+                <button onClick={closeCart} className="cart_collapse">Close Cart</button>
+                <h2 className="cart_title">Your Cart</h2>
+            </div>
+            <div className="cart_body">
+            {
+                cart.length === 0 ? (
+                    <p>Your cart is empty.</p>
+                ) : (
+                    cart.map((cart_item, key) => (
+                        <CartItem 
+                            key={key} 
+                            cart_item={cart_item} 
+                            removeItem={() => removeItem(cart_item)} 
+                        />
+                    ))
+                )
+            }
+            </div>
+            <div className="cart_footer">
+                <p>Subtotal: ${subtotal || 0}</p>
+                <button onClick={clearCart}>Clear Cart</button>
+            </div>
+        </div>
+        <div className="cart_overlay" onClick={closeCart}></div>
+    </>
   );
 }
 

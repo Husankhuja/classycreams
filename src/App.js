@@ -7,6 +7,7 @@ import './styles/Card.css';
 import './styles/ItemPage.css';
 import './styles/OrderItemCard.css';
 import './styles/Modal.css';
+import './styles/Cart.css';
 
 // pages
 import HomePage from './pages/HomePage';
