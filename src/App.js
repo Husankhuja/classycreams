@@ -8,6 +8,7 @@ import './styles/ItemPage.css';
 import './styles/OrderItemCard.css';
 import './styles/Modal.css';
 import './styles/Cart.css';
+import './styles/Table.css';
 
 // pages
 import HomePage from './pages/HomePage';
@@ -17,12 +18,11 @@ import ProductPage from "./pages/ProductPage";
 import ToppingPage from "./pages/ToppingPage";
 import OrderPage from "./pages/OrderPage";
 import IceCreamPage from "./pages/IceCreamPage";
-import AdminLayout from "./pages/AdminLayout";
+import AdminHomePage from "./pages/AdminHomePage";
 
 // contexts
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from "./contexts/CartContext";
-import LayoutPage from "./pages/LayoutPage";
 
 
 
@@ -40,8 +40,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/admin" >
-                <Route path="/admin/" element={<AdminLayout/>} />
-                <Route path="/admin/hi" element={<ToppingPage/>} />
+                <Route path="/admin/" element={<AdminHomePage/>} />
               </Route>
           </Routes>
         </CartProvider>

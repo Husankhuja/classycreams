@@ -29,6 +29,7 @@ function Cart({closeCart}) {
             </div>
             <div className="cart_footer">
                 <p>Subtotal: ${subtotal || 0}</p>
+                <button>Checkout</button>
                 <button onClick={clearCart}>Clear Cart</button>
             </div>
         </div>
