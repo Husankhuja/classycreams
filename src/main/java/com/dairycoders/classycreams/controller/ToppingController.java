@@ -1,6 +1,8 @@
 package com.dairycoders.classycreams.controller;
 
+import com.dairycoders.classycreams.annotation.RequiresAuthentication;
 import com.dairycoders.classycreams.entity.Topping;
+import com.dairycoders.classycreams.entity.enums.UserRole;
 import com.dairycoders.classycreams.service.ToppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,12 +33,14 @@ public class ToppingController {
         return ResponseEntity.ok(topping);
     }
 
+    @RequiresAuthentication(value = {UserRole.ADMIN})
     @PostMapping
     public ResponseEntity<Topping> createTopping(@RequestBody Topping topping) {
         Topping createdTopping = toppingService.createTopping(topping);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTopping);
     }
 
+    @RequiresAuthentication(value = {UserRole.ADMIN})
     @PutMapping("/{id}")
     public ResponseEntity<Topping> updateTopping(@PathVariable Long id, @RequestBody Topping topping) {
         topping.setToppingId(id);
@@ -44,6 +48,7 @@ public class ToppingController {
         return ResponseEntity.ok(updatedTopping);
     }
 
+    @RequiresAuthentication(value = {UserRole.ADMIN})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteToppingById(@PathVariable Long id) {
         toppingService.deleteToppingById(id);

@@ -40,7 +40,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
-    @RequiresAuthentication(value = {UserRole.USER})
+    @RequiresAuthentication(value = {UserRole.ADMIN})
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
         product.setProductId(id);
@@ -48,7 +48,7 @@ public class ProductController {
         return ResponseEntity.ok(updatedProduct);
     }
 
-    @RequiresAuthentication(value = {UserRole.USER})
+    @RequiresAuthentication(value = {UserRole.ADMIN})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
         productService.deleteById(id);
