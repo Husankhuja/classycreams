@@ -1,5 +1,7 @@
+import config from "../config";
+
 export async function loginRequest (email, password) {
-    let response = await fetch("http://classy-creams.herokuapp.com/api/auth/login", {
+    let response = await fetch(`${config.apiAddress}auth/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -10,7 +12,7 @@ export async function loginRequest (email, password) {
 }
 
 export async function registerRequest (email, firstName, lastName, password, password2) {
-    let response = await fetch("http://classy-creams.herokuapp.com/api/auth/register", {
+    let response = await fetch(`${config.apiAddress}auth/register`, {
         method: "POST",
         headers: {
             "content-type": "application/json",
