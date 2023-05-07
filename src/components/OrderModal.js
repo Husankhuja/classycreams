@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import cartContext from "../contexts/CartContext";
 import { iceCreamRequest, toppingRequest } from "../services/product";
 
-function ProductModal ({ product, closeModal }) {
+function OrderModal ({ product, closeModal }) {
     const [iceCreamType, setIceCreamType] = useState("SOFTSERVE");
     const [maxIceCreams, setMaxIceCreams] = useState(0);
     const [iceCreamTotal, setIceCreamTotal] = useState(0);
@@ -181,4 +181,4 @@ function ProductModal ({ product, closeModal }) {
     );
 }
 
-export default ProductModal;
+export default OrderModal;

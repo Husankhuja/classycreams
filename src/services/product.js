@@ -63,3 +63,39 @@ export async function iceCreamDeleteRequest(id) {
     });
     return response;
 }
+
+export async function productAddRequest(product) {
+    let response = await fetch(`${config.apiAddress}products`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+    });
+    return response;
+}
+
+export async function iceCreamAddRequest(iceCream) {
+    let response = await fetch(`${config.apiAddress}ice-creams`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(iceCream),
+    });
+    return response;
+}
+
+export async function toppingAddRequest(topping) {
+    let response = await fetch(`${config.apiAddress}toppings`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(topping),
+    });
+    return response;
+}

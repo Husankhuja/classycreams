@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import LayoutPage from "./LayoutPage";
-import ProductModal from "../components/ProductModal";
+import OrderModal from "../components/OrderModal";
 import OrderItemCard from "../components/OrderItemCard";
 
 function OrderPage() {
@@ -36,7 +36,7 @@ function OrderPage() {
             }
             {
                 selectedProdcut && (
-                    <ProductModal product={selectedProdcut} closeModal={closeModal} />
+                    <OrderModal product={selectedProdcut} closeModal={closeModal} />
                 )
             }
         </LayoutPage>
