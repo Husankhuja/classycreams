@@ -9,6 +9,7 @@ const Table = ({ data, deleteItem, editItem}) => {
     const keys = Object.keys(data[0]);
 
   return (
+    <div  className='table_container'>
     <table>
       <thead>
         <tr>
@@ -49,6 +50,7 @@ const Table = ({ data, deleteItem, editItem}) => {
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

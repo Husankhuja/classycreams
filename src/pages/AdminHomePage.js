@@ -159,18 +159,20 @@ const AdminHomePage = () => {
 
     return (
         <AdminLayout>
-            <h1>Admin Home Page</h1>
-            <h2>Products</h2>
-            <button onClick={() => {setDisplayAddProduct(true)}}>Add Product</button>
-            <Table data={products} deleteItem={deleteProduct} editItem={setProductToEdit} />
-            <h2>Ice Creams</h2>
-            <button onClick={() => {setDisplayAddIceCream(true)}}>Add Ice Cream</button>
-            <Table data={iceCreams} deleteItem={deleteIceCream} editItem={setIceCreamToEdit} />
-            <h2>Toppings</h2>
-            <button onClick={() => {setDisplayAddTopping(true)}}>Add Topping</button>
-            <Table data={toppings} deleteItem={deleteTopping} editItem={setToppingToEdit} />
-            <h2>Orders</h2>
-            <Table data={orders} />
+            <div className="admin_home">
+                <h1>Admin Home Page</h1>
+                <h2>Products</h2>
+                <button onClick={() => {setDisplayAddProduct(true)}}>Add Product</button>
+                <Table data={products} deleteItem={deleteProduct} editItem={setProductToEdit} />
+                <h2>Ice Creams</h2>
+                <button onClick={() => {setDisplayAddIceCream(true)}}>Add Ice Cream</button>
+                <Table data={iceCreams} deleteItem={deleteIceCream} editItem={setIceCreamToEdit} />
+                <h2>Toppings</h2>
+                <button onClick={() => {setDisplayAddTopping(true)}}>Add Topping</button>
+                <Table data={toppings} deleteItem={deleteTopping} editItem={setToppingToEdit} />
+                <h2>Orders</h2>
+                <Table data={orders} />
+            </div>
 
             {
                 displayAddProduct && (

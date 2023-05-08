@@ -12,6 +12,7 @@ import './styles/Table.css';
 
 // pages
 import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProductPage from "./pages/ProductPage";
@@ -34,6 +35,7 @@ function App() {
         <CartProvider>
           <Routes> 
               <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} /> 
               <Route path="/products" element={<ProductPage/>} />
               <Route path="/toppings" element={<ToppingPage />} />
               <Route path="/ice-creams" element={<IceCreamPage />} />

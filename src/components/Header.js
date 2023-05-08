@@ -12,7 +12,7 @@ function Header({openCart}) {
             <div>
                 <nav>
                     <Link to="/">Home</Link>
-                    <Link to="/">About Us</Link>
+                    <Link to="/about">About Us</Link>
                     <Link to="/products">Products</Link>
                     <Link to="/toppings">Toppings</Link>
                     <Link to="/ice-creams">IceCreams</Link>    

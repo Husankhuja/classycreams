@@ -1,4 +1,5 @@
 import LayoutPage from "./LayoutPage";
+import hero from "../assets/hero.jpg";
 
 const HomePage = () => {
 
@@ -6,10 +7,8 @@ const HomePage = () => {
     <LayoutPage>
       <main>
         <section>
-          <img 
-            src="https://r4.wallpaperflare.com/wallpaper/987/674/478/brain-icecream-illust-art-wallpaper-6070a5f9cf865e2358bf17765be6f408.jpg"
-            width="100%"
-          />
+          <img src={hero} alt="hero" className="hero" />
+          
         </section>
       </main>
     </LayoutPage>
