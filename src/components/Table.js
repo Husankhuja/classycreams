@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = ({ data, deleteItem = () => {}}) => {
+const Table = ({ data, deleteItem, editItem}) => {
     console.log("table", data);
     if (data.length === 0) {
         return <p>No data.</p>;
@@ -15,8 +15,13 @@ const Table = ({ data, deleteItem = () => {}}) => {
           {keys.map((key, index) => (
             <th key={index}>{key}</th>
           ))}
-          {/* <th>Edit</th> */}
-          <th>Delete</th>
+          { 
+            editItem && <th>Edit</th> 
+          }
+          {
+            deleteItem && <th>Delete</th>
+          }
+
         </tr>
       </thead>
       <tbody>
@@ -29,12 +34,17 @@ const Table = ({ data, deleteItem = () => {}}) => {
                   : item[key]}
               </td>
             ))}
-            {/* <td>
-              <button onClick={() => handleEdit(Object.values(item)[0])}>Edit</button>
-            </td> */}
-            <td>
-              <button onClick={() => deleteItem(Object.values(item)[0])}>Delete</button>
-            </td>
+
+            {
+              editItem && <td>
+                <button onClick={() =>{ console.log(item);editItem(item)}}>Edit</button>
+              </td>
+            }
+            {
+              deleteItem && <td>
+                <button onClick={() => deleteItem(Object.values(item)[0])}>Delete</button>
+              </td>
+            }
           </tr>
         ))}
       </tbody>

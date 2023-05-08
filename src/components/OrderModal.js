@@ -6,7 +6,7 @@ function OrderModal ({ product, closeModal }) {
     const [iceCreamType, setIceCreamType] = useState("SOFTSERVE");
     const [maxIceCreams, setMaxIceCreams] = useState(0);
     const [iceCreamTotal, setIceCreamTotal] = useState(0);
-    const [toppings, setToppings] = useState([]);
+    const [toppings, setToppings] = useState([]); 
     const [iceCreams, setIceCreams] = useState([]);
     
     const { addItem } = useContext(cartContext);
@@ -46,7 +46,7 @@ function OrderModal ({ product, closeModal }) {
 
     const handleIncrementTopping = (toppingId) => {
         setToppings(prev => prev.map(topping => (
-            topping.toppingId = toppingId ?
+            topping.toppingId === toppingId ?
                 {...topping, quantity: (topping.quantity || 0) + 1} :
                 topping
         )));

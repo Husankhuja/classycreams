@@ -99,3 +99,39 @@ export async function toppingAddRequest(topping) {
     });
     return response;
 }
+
+export async function productEditRequest(id, product) {
+    let response = await fetch(`${config.apiAddress}products/${id}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+    });
+    return response;
+}
+
+export async function iceCreamEditRequest(id, iceCream) {
+    let response = await fetch(`${config.apiAddress}ice-creams/${id}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(iceCream),
+    });
+    return response;
+}
+
+export async function toppingEditRequest(id, topping) {
+    let response = await fetch(`${config.apiAddress}toppings/${id}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(topping),
+    });
+    return response;
+}

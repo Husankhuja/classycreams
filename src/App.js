@@ -18,6 +18,7 @@ import ProductPage from "./pages/ProductPage";
 import ToppingPage from "./pages/ToppingPage";
 import OrderPage from "./pages/OrderPage";
 import IceCreamPage from "./pages/IceCreamPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import AdminHomePage from "./pages/AdminHomePage";
 
 // contexts
@@ -39,6 +40,7 @@ function App() {
               <Route path="/order" element={<OrderPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/admin" >
                 <Route path="/admin/" element={<AdminHomePage/>} />
               </Route>

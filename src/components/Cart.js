@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import cartContext from "../contexts/CartContext";
 import CartItem from "./CartItem";
 
@@ -29,7 +30,7 @@ function Cart({closeCart}) {
             </div>
             <div className="cart_footer">
                 <p>Subtotal: ${subtotal || 0}</p>
-                <button>Checkout</button>
+                <button><Link to="/checkout">Checkout</Link></button>
                 <button onClick={clearCart}>Clear Cart</button>
             </div>
         </div>
