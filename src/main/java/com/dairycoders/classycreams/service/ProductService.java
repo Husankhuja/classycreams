@@ -37,6 +37,8 @@ public class ProductService {
     }
 
     public Product update(Product product) {
+        IceCreamSupport iceCreamSupport = product.getIceCreamSupport();
+        iceCreamSupportRepository.save(iceCreamSupport);
         return productRepository.save(product);
     }
 
