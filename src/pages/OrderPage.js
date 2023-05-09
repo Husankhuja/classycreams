@@ -34,6 +34,18 @@ function OrderPage() {
                     <OrderItemCard item={product} openModal={openModal} />  
                 ))
             }
+            <h2>Cake</h2>
+            {
+                products.filter(product => ["CAKE"].includes(product.type)).map((product) => (
+                    <OrderItemCard item={product} openModal={openModal} />  
+                ))
+            }
+            <h2>Milkshake</h2>
+            {
+                products.filter(product => ["MILKSHAKE"].includes(product.type)).map((product) => (
+                    <OrderItemCard item={product} openModal={openModal} />
+                ))
+            }
             {
                 selectedProdcut && (
                     <OrderModal product={selectedProdcut} closeModal={closeModal} />
