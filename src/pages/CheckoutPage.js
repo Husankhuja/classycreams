@@ -16,7 +16,13 @@ const CheckoutPage = () => {
     e.preventDefault();
     const orderItems = cart.map((cartItem) => {
       const { product, iceCreams, toppings } = cartItem;
-      const iceCreamIds = iceCreams.map((iceCream) => iceCream.iceCreamId);
+      const iceCreamIds = iceCreams.flatMap((iceCream) => {
+        const ids = [];
+        for (let i = 0; i < iceCream.quantity; i++) {
+          ids.push(iceCream.iceCreamId);
+        }
+        return ids;
+      });
       const toppingIds = toppings.map((topping) => topping.toppingId);
       return {
         productId: product.productId,
@@ -26,6 +32,8 @@ const CheckoutPage = () => {
     });
     const checkoutData = {
       address,
+      isDelivery,
+      tip,
       orderItems,
     };
     console.log(checkoutData);

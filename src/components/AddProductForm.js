@@ -51,7 +51,12 @@ const AddProductForm = ({ addProduct }) => {
       </div>
       <div>
         <label htmlFor="type">Type:</label>
-        <input type="text" id="type" name="type" value={type} onChange={(e) => setType(e.target.value)} />
+        <select id="type" name="type" value={type} onChange={(e) => setType(e.target.value)}>
+          <option value="CONE">Cone</option>
+          <option value="CUP">Cup</option>
+          <option value="CAKE">Cake</option>
+          <option value="MILKSHAKE">Milkshake</option>
+        </select>
       </div>
       <div>
         <label htmlFor="basePrice">Base Price:</label>
