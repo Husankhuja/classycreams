@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { placeOrderRequest } from "../services/order";
 import cartContext from "../contexts/CartContext";
 import UserLayout from "./UserLayout";
@@ -9,6 +9,7 @@ const CheckoutPage = () => {
   const [address, setAddress] = useState('');
   const [isDelivery, setIsDelivery] = useState(true);
   const [tip, setTip] = useState(0);
+  const navigate = useNavigate();
 
 
   const handleSubmit = async (e) => {
@@ -33,6 +34,7 @@ const CheckoutPage = () => {
             if (res.ok) {
                 clearCart();
                 alert("Order placed");
+                navigate("/");
             }
             else {
                 alert("Something went wrong");

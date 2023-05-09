@@ -21,6 +21,7 @@ import OrderPage from "./pages/OrderPage";
 import IceCreamPage from "./pages/IceCreamPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import AdminHomePage from "./pages/AdminHomePage";
+import OrderInfoPage from "./pages/OrderInfoPage";
 
 // contexts
 import { AuthProvider } from './contexts/AuthContext';
@@ -40,6 +41,7 @@ function App() {
               <Route path="/toppings" element={<ToppingPage />} />
               <Route path="/ice-creams" element={<IceCreamPage />} />
               <Route path="/order" element={<OrderPage />} />
+              <Route path="/order/:orderId" element={<OrderInfoPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
