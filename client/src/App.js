@@ -24,6 +24,7 @@ import AdminHomePage from "./pages/AdminHomePage";
 import OrderInfoPage from "./pages/OrderInfoPage";
 
 // contexts
+import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from "./contexts/CartContext";
 
@@ -31,7 +32,7 @@ import { CartProvider } from "./contexts/CartContext";
 
 function App() {
   return (
-    <div className="App">
+    <ChakraProvider>
       <AuthProvider>  
         <CartProvider>
           <Routes> 
@@ -51,8 +52,7 @@ function App() {
           </Routes>
         </CartProvider>
       </AuthProvider>
-
-    </div>
+    </ChakraProvider>
   );
 }
 
