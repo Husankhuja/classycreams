@@ -1,0 +1,38 @@
+.order_item_card {
+    width: 500px;
+    height: 180px;
+    margin: 20px auto;
+    border: 1px solid gainsboro;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.order_item_card .item_details {
+    width: 320px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.order_item_card h3 {
+    margin: 0px;
+    font-size: 24px;
+    color: rgb(61, 61, 88);
+}
+
+.order_item_card p {
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.order_item_card .item_image {
+    width: 180px;
+    height: 180px;
+    background-color: white;
+    object-fit: contain;
+}

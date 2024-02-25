@@ -1,0 +1,19 @@
+.admin_home {
+    width: 80vw;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+
+.hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100vh;
+    width: 100%;
+}
+
+main {
+    text-align: center;
+    padding: 100px 200px;
+}
