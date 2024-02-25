@@ -10,7 +10,7 @@ const OrderInfoPage = () => {
 
     useEffect(() => {
 
-        fetch(`http://classy-creams.herokuapp.com/api/orders/${orderId}`,
+        fetch(`https://classy-creams.herokuapp.com/api/orders/${orderId}`,
             {
                 method: "GET",
                 headers: {

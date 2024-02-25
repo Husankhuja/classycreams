@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { productRequest } from "../services/product";
 import LayoutPage from "./LayoutPage";
 import OrderModal from "../components/OrderModal";
 import OrderItemCard from "../components/OrderItemCard";
@@ -9,7 +10,7 @@ function OrderPage() {
     const [selectedProdcut, setSelectedProduct] = useState(null);
 
     useEffect(() => {
-        fetch("http://classy-creams.herokuapp.com/api/products")
+        productRequest()
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
