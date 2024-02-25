@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .env
+load_env.ps1
 
 ### STS ###
 .apt_generated
