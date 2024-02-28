@@ -136,6 +136,8 @@ public class OrderItemService {
                 .getOrderItemIceCreamResponses();
         int iceCreamQuantity = orderItemIceCreamResponses.size();
 
+        if (iceCreamQuantity == 0) return;
+
         List<IceCreamType> iceCreamTypes = orderItemIceCreamResponses
                 .stream()
                 .map(orderItemIceCreamResponse -> orderItemIceCreamResponse.getIceCream().getType())

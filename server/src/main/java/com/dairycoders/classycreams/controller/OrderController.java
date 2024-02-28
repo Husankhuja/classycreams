@@ -48,6 +48,8 @@ public class OrderController {
             @RequestBody OrderRequest orderRequest,
             @RequestAttribute("user") User user
             ) {
+        System.out.println("\n\n");
+        System.out.println(user);
         OrderResponse createdOrder = orderService.create(user, orderRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
     }
