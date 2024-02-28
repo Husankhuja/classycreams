@@ -1,13 +1,13 @@
 import { createContext, useState, useEffect } from "react";
 import { useDisclosure } from "@chakra-ui/react";
+import useLocalStorage from "../utils/useLocalStorage";
 
 const cartContext = createContext();
 
 export default cartContext;
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  const [isMounted, setIsMounted] = useState(false);
+  const [cart, setCart] = useLocalStorage("cart", []);
   const [subtotal, setSubtotal] = useState(0);
   const {
     isOpen: isCartOpen,
@@ -16,23 +16,8 @@ export const CartProvider = ({ children }) => {
   } = useDisclosure();
 
   useEffect(() => {
-    const cart = localStorage.getItem("cart");
-    if (cart?.length > 0) {
-      setCart(JSON.parse(cart));
-    }
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
     setSubtotal(calculateSubtotal());
   }, [cart]);
-
-  useEffect(() => {
-    console.log("cart changed", cart);
-
-    if (!isMounted) return;
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart, isMounted]);
 
   const addItem = (item) => {
     const id = `item-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -69,11 +54,10 @@ export const CartProvider = ({ children }) => {
   };
 
   const calculateSubtotal = () => {
-    let price = 0;
-    cart.forEach((item) => {
-      price += item.price * item.quantity;
-    });
-    return price;
+    const subtotal = cart.reduce((accumulator, item) => {
+      return accumulator + item.price * item.quantity;
+    }, 0);
+    return subtotal;
   };
 
   const clearCart = () => {

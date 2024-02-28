@@ -11,7 +11,7 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useLocalStorage("decodedToken", null);
+  const [token, setToken] = useLocalStorage("token", null);
   const [user, setUser] = useLocalStorage("user", null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -96,7 +96,27 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
-  const contextData = { token, user, loading, login, register, logout };
+  const voluntaryLogout = () => {
+    setToken(null);
+    setUser(null);
+    toast({
+      title: "Logged out",
+      description: "You have been logged out.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
+
+  const contextData = {
+    token,
+    user,
+    loading,
+    login,
+    register,
+    logout,
+    voluntaryLogout,
+  };
 
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

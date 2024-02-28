@@ -42,12 +42,16 @@ import {
 import CartItem from "../components/CartItem";
 
 const CheckoutPage = () => {
-  const { cart, clearCart } = useContext(cartContext);
+  const { cart, clearCart, subtotal } = useContext(cartContext);
   const [address, setAddress] = useState("");
   const [isDelivery, setIsDelivery] = useState(true);
   const [tip, setTip] = useState(0);
   const navigate = useNavigate();
   const toast = useToast();
+
+  const tax = subtotal * 0.07;
+  const deliveryFee = isDelivery ? 5 : 0;
+  const total = subtotal + tax + deliveryFee + tip;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,6 +69,7 @@ const CheckoutPage = () => {
         productId: product.productId,
         iceCreamIds,
         toppingIds,
+        quantity: cartItem.quantity,
       };
     });
     const checkoutData = {
@@ -73,6 +78,7 @@ const CheckoutPage = () => {
       tip,
       orderItems,
     };
+
     console.log(checkoutData);
     placeOrderRequest(checkoutData).then((res) => {
       if (res.ok) {
@@ -234,22 +240,18 @@ const CheckoutPage = () => {
             <Heading as="h3" fontSize="2xl" mb={2}>
               Order Summary
             </Heading>
-            <Stack>
-              <Flex justify="space-between">
-                <Text>Subtotal:</Text>
-                <Text>${cart.reduce((acc, item) => acc + item.price, 0)}</Text>
-              </Flex>
-              <Flex justify="space-between">
-                <Text>Tip:</Text>
-                <Text>${tip}</Text>
-              </Flex>
-              <Flex justify="space-between">
-                <Text>Total:</Text>
-                <Text>
-                  ${cart.reduce((acc, item) => acc + item.price, 0) + tip}
-                </Text>
-              </Flex>
-            </Stack>
+            <Grid templateColumns={"1fr auto"}>
+              <Text>Subtotal:</Text>
+              <Text>${subtotal.toFixed(2)}</Text>
+              <Text>Delivery:</Text>
+              <Text>${deliveryFee.toFixed(2)}</Text>
+              <Text>Tax:</Text>
+              <Text>${tax.toFixed(2)}</Text>
+              <Text>Tip:</Text>
+              <Text>${tip.toFixed(2)}</Text>
+              <Text>Total:</Text>
+              <Text>${total.toFixed(2)}</Text>
+            </Grid>
           </Container>
         </GridItem>
       </Grid>
