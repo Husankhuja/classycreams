@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
@@ -13,32 +12,10 @@ import {
   Heading,
   Container,
 } from "@chakra-ui/react";
-import { registerRequest } from "../services/auth";
+import AuthContext from "../contexts/AuthContext";
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  const navigate = useNavigate();
-
-  const register = async (e) => {
-    e.preventDefault();
-    let response = await registerRequest(
-      email,
-      firstName,
-      lastName,
-      password,
-      password2
-    );
-    if (response.ok) {
-      console.log("Registration successful");
-      navigate("/login");
-    } else {
-      alert("Registration failed");
-    }
-  };
+  const { register } = useContext(AuthContext);
 
   return (
     <VStack p={10} minH="100vh" justify="center">
@@ -73,8 +50,6 @@ const RegisterPage = () => {
                   border="1px solid #cdddf7"
                   _hover={{ border: "1px solid #b4cffa" }}
                   type="email"
-                  value={email}
-                  onChange={({ target }) => setEmail(target.value)}
                 />
               </FormControl>
               <FormControl id="firstName" isRequired>
@@ -83,8 +58,6 @@ const RegisterPage = () => {
                   border="1px solid #cdddf7"
                   _hover={{ border: "1px solid #b4cffa" }}
                   type="text"
-                  value={firstName}
-                  onChange={({ target }) => setFirstName(target.value)}
                 />
               </FormControl>
               <FormControl id="lastName" isRequired>
@@ -93,8 +66,6 @@ const RegisterPage = () => {
                   border="1px solid #cdddf7"
                   _hover={{ border: "1px solid #b4cffa" }}
                   type="text"
-                  value={lastName}
-                  onChange={({ target }) => setLastName(target.value)}
                 />
               </FormControl>
               <FormControl id="password" isRequired>
@@ -103,8 +74,6 @@ const RegisterPage = () => {
                   border="1px solid #cdddf7"
                   _hover={{ border: "1px solid #b4cffa" }}
                   type="password"
-                  value={password}
-                  onChange={({ target }) => setPassword(target.value)}
                 />
               </FormControl>
               <FormControl id="password2" isRequired>
@@ -113,8 +82,6 @@ const RegisterPage = () => {
                   border="1px solid #cdddf7"
                   _hover={{ border: "1px solid #b4cffa" }}
                   type="password"
-                  value={password2}
-                  onChange={({ target }) => setPassword2(target.value)}
                 />
               </FormControl>
               <Button type="submit" colorScheme="blue" width="full">
