@@ -1,6 +1,5 @@
 const config = {
-    apiAddress: 'https://classy-creams.herokuapp.com/api/',
-  };
-  
-  export default config;
-  
+  apiAddress: "http://localhost:8080/api/",
+};
+
+export default config;
