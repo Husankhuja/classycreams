@@ -19,7 +19,7 @@ function UserDashboardLayout({ children, showSidebar = true }) {
       alert("You must be a User to access this page");
       navigate("/");
     }
-  }, [user, loading]);
+  }, [user, loading, navigate]);
   return (
     <BaseLayout enableBreadcrumb={true}>
       {loading && <div>Loading...</div>}

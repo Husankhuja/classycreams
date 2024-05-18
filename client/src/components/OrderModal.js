@@ -5,7 +5,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
@@ -59,7 +58,7 @@ function OrderModal({ product, isOpen, closeModal }) {
         ? product.iceCreamSupport.maxSoft
         : product.iceCreamSupport.maxScoops
     );
-  }, [iceCreamType]);
+  }, [iceCreamType, product]);
 
   const handleSelectType = (e) => {
     setIceCreamType(e.target.value);

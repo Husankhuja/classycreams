@@ -14,7 +14,7 @@ function AdminLayout({ children }) {
       // redirect to home page
       navigate("/");
     }
-  }, [user, loading]);
+  }, [user, loading, navigate]);
   return (
     <>
       {loading && <div>Loading...</div>}

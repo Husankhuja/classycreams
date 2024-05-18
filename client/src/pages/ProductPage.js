@@ -3,13 +3,7 @@ import LayoutPage from "./layouts/BaseLayout";
 import CardGrid from "../components/CardGrid";
 import { productRequest } from "../services/product";
 
-import { Container, Box, Text, VStack } from "@chakra-ui/react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-} from "@chakra-ui/react";
+import { Text, VStack } from "@chakra-ui/react";
 
 function ProductPage() {
   const [products, setProducts] = useState([]);

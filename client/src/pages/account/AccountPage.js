@@ -4,24 +4,7 @@ import UserDashboardLayout from "../layouts/UserDashboardLayout";
 
 import AuthContext from "../../contexts/AuthContext";
 
-import ProfileSideBar from "../../components/ProfileSideBar";
-
-import {
-  Grid,
-  GridItem,
-  Box,
-  HStack,
-  VStack,
-  Heading,
-  Text,
-  Divider,
-  Spacer,
-  Button,
-  Container,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
-
-import { Link } from "react-router-dom";
+import { VStack, Text, Button } from "@chakra-ui/react";
 
 const AccountPage = () => {
   const { user } = useContext(AuthContext);

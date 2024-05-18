@@ -15,7 +15,7 @@ function UserLayout({ children }) {
       alert("You must be a User to access this page");
       navigate("/");
     }
-  }, [user, loading]);
+  }, [user, loading, navigate]);
   return (
     <>
       {loading && <div>Loading...</div>}

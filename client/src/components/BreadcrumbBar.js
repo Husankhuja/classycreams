@@ -5,7 +5,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Box,
-  Text,
 } from "@chakra-ui/react";
 
 const BreadcrumbBar = () => {

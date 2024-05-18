@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-import { VStack, Spacer, Box } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 
 import Header from "../../components/header/Header";
 import BreadcrumbBar from "../../components/BreadcrumbBar";

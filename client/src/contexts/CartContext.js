@@ -16,6 +16,12 @@ export const CartProvider = ({ children }) => {
   } = useDisclosure();
 
   useEffect(() => {
+    const calculateSubtotal = () => {
+      const subtotal = cart.reduce((accumulator, item) => {
+        return accumulator + item.price * item.quantity;
+      }, 0);
+      return subtotal;
+    };
     setSubtotal(calculateSubtotal());
   }, [cart]);
 
@@ -51,13 +57,6 @@ export const CartProvider = ({ children }) => {
 
   const removeItem = (itemId) => {
     setCart((prev) => prev.filter((cartItem) => cartItem.id !== itemId));
-  };
-
-  const calculateSubtotal = () => {
-    const subtotal = cart.reduce((accumulator, item) => {
-      return accumulator + item.price * item.quantity;
-    }, 0);
-    return subtotal;
   };
 
   const clearCart = () => {

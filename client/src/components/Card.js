@@ -1,11 +1,4 @@
-import {
-  Card as ChakraCard,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Card as ChakraCard, CardBody, Image, Text } from "@chakra-ui/react";
 
 function Card({ item }) {
   return (

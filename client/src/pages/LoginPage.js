@@ -12,7 +12,6 @@ import {
   Text,
   Link,
   Heading,
-  Center,
 } from "@chakra-ui/react";
 
 const LoginPage = () => {

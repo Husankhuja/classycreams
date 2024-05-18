@@ -17,7 +17,7 @@ import { IconButton } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/icons";
 
 function ProfileMenu() {
-  const { user, voluntaryLogout } = useContext(AuthContext);
+  const { voluntaryLogout } = useContext(AuthContext);
   return (
     <Menu>
       <MenuButton as={Button} p={0} mr={4}>

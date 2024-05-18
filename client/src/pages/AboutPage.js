@@ -1,14 +1,6 @@
 import LayoutPage from "./layouts/BaseLayout";
 
-import {
-  Container,
-  VStack,
-  Text,
-  Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from "@chakra-ui/react";
+import { VStack, Text } from "@chakra-ui/react";
 
 const AboutPage = () => {
   return (

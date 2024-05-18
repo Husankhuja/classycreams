@@ -4,22 +4,17 @@ import {
   Box,
   Flex,
   Text,
-  Button,
-  Link as ChakraLink,
   Spacer,
-  HStack,
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { HamburgerIcon, Icon } from "@chakra-ui/icons";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import NavBar from "./NavBar";
 import ControlBar from "./ControlBar";
 import Cart from "../Cart";
 
 function Header() {
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const {
     isOpen: isMenuOpen,
     onOpen: onMenuOpen,

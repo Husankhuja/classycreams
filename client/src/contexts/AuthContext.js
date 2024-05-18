@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       }
     }
     setLoading(false);
-  }, []);
+  }, [token, setToken, setUser]);
 
   const handleToken = (token) => {
     setToken(token);

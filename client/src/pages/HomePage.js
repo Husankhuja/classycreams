@@ -1,13 +1,10 @@
 import LayoutPage from "./layouts/BaseLayout";
-import hero from "../assets/hero.jpg";
 import icecream from "../assets/ai_icecream.webp";
 
 import {
   Box,
-  Container,
   Center,
   VStack,
-  HStack,
   Stack,
   Heading,
   Button,
