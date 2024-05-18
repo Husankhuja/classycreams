@@ -21,8 +21,15 @@ import ToppingPage from "./pages/ToppingPage";
 import OrderMenuPage from "./pages/OrderMenuPage";
 import IceCreamPage from "./pages/IceCreamPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import AdminHomePage from "./pages/AdminHomePage";
 import OrderInfoPage from "./pages/OrderInfoPage";
+
+// account pages
+import AccountPage from "./pages/account/AccountPage";
+import OrdersPage from "./pages/account/OrdersPage";
+import SettingsPage from "./pages/account/SettingsPage";
+
+// admin pages
+import AdminHomePage from "./pages/AdminHomePage";
 
 // contexts
 import { ChakraProvider } from "@chakra-ui/react";
@@ -46,7 +53,12 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/admin">
-              <Route path="/admin/" element={<AdminHomePage />} />
+              <Route path="/admin" element={<AdminHomePage />} />
+            </Route>
+            <Route path="/account">
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/account/orders" element={<OrdersPage />} />
+              <Route path="/account/settings" element={<SettingsPage />} />
             </Route>
           </Routes>
         </CartProvider>

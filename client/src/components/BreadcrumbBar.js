@@ -35,10 +35,9 @@ const BreadcrumbBar = () => {
             );
           })}
         </Breadcrumb>
-        {/* This text could dynamically reflect the current page */}
-        <Text fontSize="2xl" fontWeight="bold" color="black">
+        {/* <Text fontSize="2xl" fontWeight="bold" color="black">
           {capitalize(pathnames[pathnames.length - 1] || "Home")}
-        </Text>
+        </Text> */}
       </Box>
     </Box>
   );

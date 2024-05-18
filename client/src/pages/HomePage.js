@@ -72,6 +72,7 @@ const HomePage = () => {
               align="center"
               justify="center"
               minH="200px"
+              boxShadow="lg"
             >
               <Text>Checkout our products.</Text>
               <ChakraLink as={Link} to="/products">
@@ -82,6 +83,7 @@ const HomePage = () => {
               boxSize="100%"
               minH="200px"
               bg="brand.200"
+              boxShadow="lg"
               align="center"
               justify="center"
             >
@@ -96,6 +98,7 @@ const HomePage = () => {
               align="center"
               justify="center"
               minH="200px"
+              boxShadow="lg"
             >
               <Text>Checkout our Toppings.</Text>
               <ChakraLink as={Link} to="/toppings">
