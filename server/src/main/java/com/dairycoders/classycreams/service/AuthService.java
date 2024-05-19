@@ -21,8 +21,8 @@ public class AuthService {
 
     public String register(RegisterRequest registerRequest) {
         User user = new User();
-        user.setFirstName(registerRequest.getFirstname());
-        user.setLastName(registerRequest.getLastname());
+        user.setFirstName(registerRequest.getFirstName());
+        user.setLastName(registerRequest.getLastName());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(
                 hashPassword(registerRequest.getPassword())
